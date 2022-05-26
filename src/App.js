@@ -16,6 +16,7 @@ import Configurations from "./layout/Configurations";
 
 import "react-toastify/dist/ReactToastify.min.css";
 import "./App.css";
+import ManageUsers from "./pages/UserManagement/ManageUsers/ManageUsers";
 
 // window.__react_toast_provider = React.createRef();
 // create a default container so we can override the styles
@@ -34,6 +35,7 @@ function App() {
               {/* <Route path="*" element={<NoPage />} /> */}
             </Route>
             <Route path="test/123" element={<Test />} />
+            <Route path="/manage-users" element={<ManageUsers />} />
           </Switch>
         </Router>
         <ToastContainer />
