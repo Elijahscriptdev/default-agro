@@ -2,9 +2,22 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#drawer-logo {
+  width: 149px;
+  height: auto;
+  box-sizing: border-box;
+  object-fit: contain;
+  /* border: 1px solid red; */
+}
+
+.list-item-text [class*="MuiListItemText-"] {
+  font-size: 16px !important;
+  font-weight: 600;
+  color: #6C757D
+}
+
+.input-field .MuiFilledInput-root{
+  border-radius: 50px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
