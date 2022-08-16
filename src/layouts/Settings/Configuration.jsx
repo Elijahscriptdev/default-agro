@@ -10,6 +10,8 @@ import Dialog from "../../components/Modals/Dialog";
 import BreadCrumb from "../../components/common/CustomBreadCrumbs";
 
 import { NewMessage } from "./ModalContents";
+import { Box, FormControlLabel, Radio, RadioGroup, Switch } from "@mui/material";
+import "./Configuration.scss"
 
 const Configuration = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -25,78 +27,40 @@ const Configuration = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "BatchID",
-        accessor: "BatchID",
+        Header: "Check",
+        accessor: "Check",
       },
       {
-        Header: "Date Sent",
+        Header: "Perform Check",
         Cell: () => {
           return (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span
-                style={{ fontSize: "14px", fontWeight: 600, color: "#6C757D" }}
-              >
-                2020-03-13
-              </span>
-              <span
-                style={{ color: "#009688", fontSize: "12px", fontWeight: 600 }}
-              >
-                10:41:12
-              </span>
-            </div>
+            <Switch aria-label= 'Switch demo' />
           );
         },
       },
       {
-        Header: "Status",
+        Header: "Fail Final Result",
         Cell: () => {
           return (
-            <div
-              style={{
-                width: "48px",
-                height: "26px",
-                borderRadius: "12px",
-                borderColor: "#B7EB8F",
-                borderWidth: "1px",
-                backgroundColor: "#F6FFED",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <span
-                style={{ fontSize: "12px", fontWeight: 600, color: "#52C41A" }}
-              >
-                Sent
-              </span>
-            </div>
+            <Box className="config-table-checks">
+
+            <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            name="radio-buttons-group"
+            sx={{
+              display:"flex",
+              alignItems:"center"
+            
+            }}
+          >
+            <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+            <FormControlLabel value="no" control={<Radio />} label="No" />
+          </RadioGroup>
+            </Box>
           );
         },
       },
-      {
-        Header: "Total SMS Sent",
-        accessor: "Total SMS Sent",
-      },
-      {
-        Header: "Successful",
-        accessor: "Successful",
-      },
-      {
-        Header: "Failed",
-        accessor: "Failed",
-      },
-      {
-        Header: "Cost",
-        accessor: "Cost",
-      },
-      {
-        Header: "Download",
-        Cell: () => {
-          return (
-            <AiOutlineDownload style={{ fontSize: "25px", color: "#6C757D" }} />
-          );
-        },
-      },
+   
     ],
     []
   );
@@ -104,39 +68,11 @@ const Configuration = () => {
   const TableData = useMemo(
     () => [
       {
-        BatchID: 60,
-        "Total SMS Sent": 1,
-        Successful: 1,
-        Failed: 1,
-        Cost: "$4.00",
+        Check: "VEGETATION CHECK",
+       
       },
       {
-        BatchID: 60,
-        "Total SMS Sent": 1,
-        Successful: 1,
-        Failed: 1,
-        Cost: "$4.00",
-      },
-      {
-        BatchID: 60,
-        "Total SMS Sent": 1,
-        Successful: 1,
-        Failed: 1,
-        Cost: "$4.00",
-      },
-      {
-        BatchID: 60,
-        "Total SMS Sent": 1,
-        Successful: 1,
-        Failed: 1,
-        Cost: "$4.00",
-      },
-      {
-        BatchID: 60,
-        "Total SMS Sent": 1,
-        Successful: 1,
-        Failed: 1,
-        Cost: "$4.00",
+        Check: "CLOSENESS TO A BODY OF WATER",
       },
     ],
     []
