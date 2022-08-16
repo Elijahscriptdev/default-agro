@@ -1,0 +1,6 @@
+export const SET_CURRENT_DRAWER_MENU = "SET_CURRENT_DRAWER_MENU";
+export const GET_CURRENT_DRAWER_MENU = "GET_CURRENT_DRAWER_MENU";
+export const GET_STATES = "GET_STATES";
+export const SET_STATES = "SET_STATES";
+export const GET_LOCALS = "GET_LOCALS";
+export const SET_LOCALS = "SET_LOCALS";

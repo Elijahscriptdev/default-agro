@@ -1,42 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { IconContext } from "react-icons";
+
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import AppBar from "@mui/material/AppBar";
-import MenuIcon from "@mui/icons-material/Menu";
+import MuiButton from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
-import { defaultUser } from "../data/AuthUser";
+import { CgMenuLeftAlt as MenuIcon } from "react-icons/cg";
+
+// import { defaultUser } from "../data/AuthUser";
 import UserAvatar from "./common/UserAvatar";
-import Drawer from "./Drawer";
+
+import { theme } from "../context/ThemeProvider";
+import { logout } from "../redux/actions/AuthActions";
 
 function Header(props) {
-  const drawerWidth = 259;
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [authenticatedUser, setAuthenticatedUser] = useState(defaultUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+  const authenticatedUser = useSelector(
+    (state) => (
+      state.AuthReducer.userProfile ||
+      JSON.parse(sessionStorage.getItem("user_profile"))
+    )
+  );
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const toggleProfileMenu = (show) => (event) => {
+    if (show) {
+      setAnchorEl(event.currentTarget);
+    } else {
+      setAnchorEl(null);
+    }
   };
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      setAuthenticatedUser(user);
-    }
-  }, [authenticatedUser]);
+  const handleLogout = (event) => {
+    dispatch(logout(navigate));
+    toggleProfileMenu(false)(event);
+  };
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-        color="secondary"
-      >
+      <AppBar position="relative" elevation={0} color="secondary">
         <Toolbar
           sx={{
             display: "flex",
@@ -44,52 +56,98 @@ function Header(props) {
             justifyContent: "space-between",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              padding: "0px 20px",
-              overflow: "hidden"
-            }}
-          >
-            <UserAvatar
-              firstname={authenticatedUser.firstname}
-              lastname={authenticatedUser.lastname}
-            />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                textTransform: "capitalize",
+          <div>
+            <MuiButton
+              sx={{ padding: "10px 15px 10px 20px" }}
+              id="header-profile-button"
+              aria-controls={open ? "header-profile-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={toggleProfileMenu(true)}
+            >
+              <Stack
+                direction="row"
+                alignItems="center"
+                sx={{
+                  overflow: "hidden",
+                }}
+              >
+                <UserAvatar
+                  size="32px"
+                  fontSize="13px"
+                  firstname={authenticatedUser?.first_name || ""}
+                  lastname={authenticatedUser?.last_name || ""}
+                />
+                <Stack
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="flex-start"
+                  sx={{ ml: "13px", textTransform: "capitalize" }}
+                >
+                  <h3
+                    style={{ margin: "0", fontWeight: "800", fontSize: "14px" }}
+                  >
+                    {`${authenticatedUser?.first_name || "-"} ${
+                      authenticatedUser?.last_name || "-"
+                    }`}
+                  </h3>
+                  <span style={{ fontSize: "12px" }}>
+                    {authenticatedUser?.my_role?.role || "-"}
+                  </span>
+                </Stack>
+              </Stack>
+            </MuiButton>
+            <Menu
+              id="header-profile-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={toggleProfileMenu(false)}
+              MenuListProps={{
+                "aria-labelledby": "header-profile-button",
+              }}
+              sx={{
+                "& .MuiMenu-paper": {
+                  borderRadius: "15px",
+                  boxShadow: "0px 5px 20px rgba(108, 117, 125, 0.4)",
+                },
               }}
             >
-              <h3 style={{margin: '0', fontWeight: "800"}}>
-                {`${authenticatedUser.firstname} ${authenticatedUser.lastname}`}
-              </h3>
-              <span style={{}}>{authenticatedUser.role}</span>
-            </div>
-          </Box>
-          {/* <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography> */}
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+              <MenuItem onClick={toggleProfileMenu(false)}>
+                <MuiButton
+                  href="/profile"
+                  sx={{
+                    p: 0,
+                    m: 0,
+                    textTransform: "capitalize",
+                    color: "inherit",
+                    fontSize: "inherit",
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                >
+                  Edit Profile
+                </MuiButton>
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
+          </div>
+
+          <IconContext.Provider
+            value={{ size: "28px", color: `${theme.palette.primary.main}` }}
           >
-            <MenuIcon />
-          </IconButton>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={props.toggler}
+              sx={{ ml: -1, display: { md: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </IconContext.Provider>
         </Toolbar>
       </AppBar>
-      <Drawer
-        isOpen={mobileOpen}
-        width={drawerWidth}
-        toggler={handleDrawerToggle}
-      />
     </React.Fragment>
   );
 }

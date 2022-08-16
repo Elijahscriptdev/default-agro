@@ -6,6 +6,7 @@ export const theme = createTheme({
       // Purple and green play nicely together.
       light: 'rgba(0, 150, 136, 0.05)',
       main: '#009688',
+      // main: 'rgba(20, 182, 167, 0.75)',
     },
     secondary: {
       // This is green.A700 as hex.

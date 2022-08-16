@@ -16,7 +16,7 @@ const CustomListItem = (props) => {
       if (propOnClick) {
         propOnClick(ev);
       }
-      console.log(ev);
+      // console.log(ev);
       setOpen(!open);
     }
 };

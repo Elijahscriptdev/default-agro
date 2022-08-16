@@ -1,6 +1,6 @@
 export const defaultUser = {
-  firstname: "John",
-  lastname: "Doe",
+  first_name: "Wasiu",
+  last_name: "Odumosu",
   avatarUrl: "https://randomuser.me/api/portraits/",
   role: "Aggregator",
 };

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import DraftIcon from "@mui/icons-material/";
 
 class ErrorBoundary extends Component {
   constructor() {
@@ -17,9 +18,10 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className='text-center'>
-          <div variant='danger'>A Serious Error Occured. Please Contact Administrator</div>
-        </div>
+        <main className='flex flex-col items-center' id="error-page-content">
+          {/* <DraftIcon className="text-red-500" /> */}
+          <span variant='danger' className=''>A Serious Error Occured. Please Contact Administrator</span>
+        </main>
       );
     }
     return this.props.children;
