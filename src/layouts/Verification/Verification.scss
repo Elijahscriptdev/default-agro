@@ -1,0 +1,53 @@
+.verification-container {
+  background: rgba(255, 255, 255, 0.5);
+//   opacity: 0.55;
+  border-radius: 10px;
+  padding: 20px 20px;
+  .verification-dropdowns {
+    // .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+
+    // }
+  }
+  .verification-top {
+    margin-top: 30px;
+    .top-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #ffffff;
+      border: 1px solid rgba(108, 117, 125, 0.15);
+      box-shadow: -2px 4px 4px rgba(75, 75, 90, 0.075);
+      border-radius: 5px;
+      height: 97px;
+      padding: 20px;
+    //   opacity: 1;
+      .card-detail {
+        display: flex;
+        justify-content: space-between;
+        .detail-text {
+          font-family: "Nunito Sans";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          color: #6c757d;
+        }
+      }
+      .card-value {
+        font-family: "Nunito Sans";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 55px;
+        color: #6c757d;
+      }
+    }
+  }
+}
+
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  background: rgba(20, 182, 167, 0.75);
+  border: 1px solid rgba(20, 182, 167, 0.4);
+  box-shadow: 0px 5px 20px rgba(108, 117, 125, 0.15);
+  // border-radius: 15px;
+  color: #ffffff;
+}

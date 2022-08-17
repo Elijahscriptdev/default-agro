@@ -289,6 +289,13 @@ const DrawerContent = ({ closeHandler }) => {
               role={authenticatedUser?.my_role?.role}
               perform='input:visit'
               yes={() => ( */}
+            <CustomListItem
+            icon={<DashboardIcon />}
+            text='Verification List'
+            href='/verification'
+            selected={listSelected === 9}
+            onClick={handleListItemClick(9)}
+          />
           <CustomListItem
             icon={<InputMgtIcon />}
             text='Tenants'

@@ -34,6 +34,9 @@ const DashboardIndexSection = React.lazy(() =>
 const FarmAnalysis = React.lazy(() =>
   import("./layouts/dashboard/farmAnalysis/FarmAnalysis")
 );
+const Verification = React.lazy(() =>
+  import("./layouts/Verification/Verification")
+);
 const FarmActivities = React.lazy(() =>
   import("./layouts/dashboard/FarmActivities/FarmActivities")
 );
@@ -295,6 +298,10 @@ function App() {
               {/* COLLECTIONS */}
               <Route path='/collections' element={<Dashboard />}>
                 <Route index element={<Collections />} />
+              </Route>
+              {/* VERIFICATION */}
+              <Route path='/verification' element={<Dashboard />}>
+                <Route index element={<Verification />} />
               </Route>
 
               {/* PAYMENT */}
