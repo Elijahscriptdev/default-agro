@@ -72,7 +72,7 @@ function AddTenants() {
 
   return (
     <React.Fragment>
-      <section>
+        <section>
         <nav id='quick-nav'>
           <BreadCrumb
             breadcrumbs={[
@@ -88,6 +88,7 @@ function AddTenants() {
             ]}
           />
         </nav>
+  
 
         <Stack
           direction='column'

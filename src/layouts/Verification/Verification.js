@@ -117,7 +117,7 @@ const Verification = () => {
                 background: "rgba(246, 255, 237, 0.4)",
                 border: "0.6px solid rgba(20, 182, 167, 0.75)",
                 borderRadius: "12px",
-                padding:"5px 10px"
+                padding: "5px 10px",
               }}
             >
               Passed
@@ -132,20 +132,21 @@ const Verification = () => {
           // console.log(original);
           return (
             <Box
-            sx={{
-              display:"flex",
-              justifyContent:"center",
-              fontFamily: "Nunito",
-              fontStyle: "normal",
-              fontWeight: 600,
-              fontSize: "14px",
-              color: "rgba(20, 182, 167, 0.75)",
-              background: "rgba(246, 255, 237, 0.4)",
-              border: "0.6px solid rgba(20, 182, 167, 0.75)",
-              borderRadius: "12px",
-              padding:"5px 10px"
-            }}>
-            True
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                fontFamily: "Nunito",
+                fontStyle: "normal",
+                fontWeight: 600,
+                fontSize: "14px",
+                color: "rgba(20, 182, 167, 0.75)",
+                background: "rgba(246, 255, 237, 0.4)",
+                border: "0.6px solid rgba(20, 182, 167, 0.75)",
+                borderRadius: "12px",
+                padding: "5px 10px",
+              }}
+            >
+              True
             </Box>
           );
         },
@@ -157,20 +158,21 @@ const Verification = () => {
           // console.log(original);
           return (
             <Box
-            sx={{
-              display:"flex",
-              justifyContent:"center",
-              fontFamily: "Nunito",
-              fontStyle: "normal",
-              fontWeight: 600,
-              fontSize: "14px",
-              color: "rgba(249, 9, 9, 0.83);",
-              background: "rgba(249, 9, 9, 0.16);",
-              border: " 0.6px solid #F90909",
-              borderRadius: "12px",
-              padding:"5px 10px"
-            }}>
-            False
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                fontFamily: "Nunito",
+                fontStyle: "normal",
+                fontWeight: 600,
+                fontSize: "14px",
+                color: "rgba(249, 9, 9, 0.83);",
+                background: "rgba(249, 9, 9, 0.16);",
+                border: " 0.6px solid #F90909",
+                borderRadius: "12px",
+                padding: "5px 10px",
+              }}
+            >
+              False
             </Box>
           );
         },
@@ -182,20 +184,21 @@ const Verification = () => {
           // console.log(original);
           return (
             <Box
-            sx={{
-              display:"flex",
-              justifyContent:"center",
-              fontFamily: "Nunito",
-              fontStyle: "normal",
-              fontWeight: 600,
-              fontSize: "14px",
-              color: "rgba(249, 9, 9, 0.83);",
-              background: "rgba(249, 9, 9, 0.16);",
-              border: " 0.6px solid #F90909",
-              borderRadius: "12px",
-              padding:"5px 10px"
-            }}>
-            False
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                fontFamily: "Nunito",
+                fontStyle: "normal",
+                fontWeight: 600,
+                fontSize: "14px",
+                color: "rgba(249, 9, 9, 0.83);",
+                background: "rgba(249, 9, 9, 0.16);",
+                border: " 0.6px solid #F90909",
+                borderRadius: "12px",
+                padding: "5px 10px",
+              }}
+            >
+              False
             </Box>
           );
         },
@@ -206,8 +209,8 @@ const Verification = () => {
           // const { original } = row;
           // console.log(original);
           return (
-            <IconButton>
-            <Box component="img" src={EyeIcon} />
+            <IconButton href='/verification/verification-list'>
+              <Box component="img" src={EyeIcon} />
             </IconButton>
           );
         },
@@ -277,9 +280,7 @@ const Verification = () => {
           <Grid item md={2} sm={6}>
             <FormControl
               fullWidth
-              sx={{
-                border: "none",
-              }}
+              
             >
               <InputLabel id="demo-simple-select-label">Partner</InputLabel>
               <Select
@@ -288,6 +289,7 @@ const Verification = () => {
                 value={partner}
                 label="Partner"
                 onChange={handleChangePartner}
+                disableUnderline="true"
               >
                 <MenuItem value={10}>...</MenuItem>
                 <MenuItem value={20}>...</MenuItem>
@@ -444,7 +446,7 @@ const Verification = () => {
               // onClick={handleModalOpen("add-user", {
               //   roles: roles || [],
               // })}
-              // href='/tenants/add-tenant'
+              
               value="Download"
               disableElevation
             />

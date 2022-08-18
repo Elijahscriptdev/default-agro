@@ -37,6 +37,9 @@ const FarmAnalysis = React.lazy(() =>
 const Verification = React.lazy(() =>
   import("./layouts/Verification/Verification")
 );
+const VerificationList = React.lazy(() =>
+  import("./layouts/Verification/ViewMore/VerificationList")
+);
 const FarmActivities = React.lazy(() =>
   import("./layouts/dashboard/FarmActivities/FarmActivities")
 );
@@ -302,6 +305,7 @@ function App() {
               {/* VERIFICATION */}
               <Route path='/verification' element={<Dashboard />}>
                 <Route index element={<Verification />} />
+                <Route path="verification-list" element={<VerificationList />} />
               </Route>
 
               {/* PAYMENT */}
