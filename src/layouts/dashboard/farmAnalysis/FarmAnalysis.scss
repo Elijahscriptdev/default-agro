@@ -38,6 +38,20 @@
           @include font(Nunito Sans, normal, 700, 16px, #373D42);
         }
       }
+      .weather-forecast{
+        display: flex;
+        .forcast-today{
+          .forecast-top{
+            @include font(Nunito Sans, normal, 700, 16px, #373D42);
+          }
+          .forcast-date{
+            @include font(Nunito Sans, normal, 600, 14px, #6C757D);
+          }
+          .weather{
+            @include font(Nunito Sans, normal, 600, 14px, #6C757D);
+          }
+        }
+      }
     }
     .insight-details {
       .select-layer{
@@ -109,6 +123,7 @@
       }
     }
   }
+  
 }
 
 .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {

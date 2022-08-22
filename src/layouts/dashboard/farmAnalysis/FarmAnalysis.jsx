@@ -100,56 +100,69 @@ const MapInsight = () => {
             </Box>
 
             <Box className="weather-forecast">
-              <Box className="forcast-today"
-              >
-              <p className="forcast-top">Weather Forecast</p>
-              <p className="forcast-date">Today, Wednesday 20-08-2020</p>
-              <p className="weather"><Box component="img" src={cloud}/>58°C</p>
-              <p>Feels like 56°C</p>
-              <Box >
+              <Box className="forcast-today">
+                <p className="forcast-top">Weather Forecast</p>
+                <p className="forcast-date">Today, Wednesday 20-08-2020</p>
+                <p className="weather">
+                  <Box component="img" src={cloud} />
+                  58°C
+                </p>
+                <p>Feels like 56°C</p>
                 <Box>
-                  <p>Dewpoint</p>
-                  <p>55°</p>
+                  <Box>
+                    <p>Dewpoint</p>
+                    <p>55°</p>
+                  </Box>
+                  <Box>
+                    <p>Wind</p>
+                    <p>4mph E</p>
+                  </Box>
+                  <Box>
+                    <p>Humidity</p>
+                    <p>87%</p>
+                  </Box>
                 </Box>
-                <Box>
-                  <p>Wind</p>
-                  <p>4mph E</p>
-                </Box>
-                <Box>
-                  <p>Humidity</p>
-                  <p>87%</p>
-                </Box>
-              </Box>
               </Box>
 
               <Box className="forecast-hourly">
-              <Box>
+                <p>Hourly</p>
+                <Box>
                   <p>5pm</p>
-                  <Box component="img" src={cloud}/>
+                  <Box component="img" src={cloud} />
                   <p>58°</p>
-                  <p><Box component="img" src={water} />100%</p>
+                  <p>
+                    <Box component="img" src={water} />
+                    100%
+                  </p>
                 </Box>
-              <Box>
+                <Box>
                   <p>5pm</p>
-                  <Box component="img" src={cloud}/>
+                  <Box component="img" src={cloud} />
                   <p>58°</p>
-                  <p><Box component="img" src={water} />100%</p>
+                  <p>
+                    <Box component="img" src={water} />
+                    100%
+                  </p>
                 </Box>
-              <Box>
+                <Box>
                   <p>5pm</p>
-                  <Box component="img" src={cloud}/>
+                  <Box component="img" src={cloud} />
                   <p>58°</p>
-                  <p><Box component="img" src={water} />100%</p>
+                  <p>
+                    <Box component="img" src={water} />
+                    100%
+                  </p>
                 </Box>
-              <Box>
+                <Box>
                   <p>5pm</p>
-                  <Box component="img" src={cloud}/>
+                  <Box component="img" src={cloud} />
                   <p>58°</p>
-                  <p><Box component="img" src={water} />100%</p>
+                  <p>
+                    <Box component="img" src={water} />
+                    100%
+                  </p>
                 </Box>
               </Box>
-
-
             </Box>
           </Box>
 
