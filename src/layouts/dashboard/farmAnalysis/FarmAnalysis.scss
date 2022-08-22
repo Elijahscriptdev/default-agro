@@ -31,35 +31,111 @@
   .insight-container {
     margin-top: 30px;
     width: 100%;
-    .map-details{
-      .history{
+    .map-details {
+      .history {
         margin-top: 50px;
-        .history-top{
-          @include font(Nunito Sans, normal, 700, 16px, #373D42);
+        .history-top {
+          @include font(Nunito Sans, normal, 700, 16px, #373d42);
         }
       }
-      .weather-forecast{
+      .weather-forecast {
         display: flex;
-        .forcast-today{
-          .forecast-top{
-            @include font(Nunito Sans, normal, 700, 16px, #373D42);
+        flex-direction: column;
+        margin: 30px 0px;
+        .first-weather-container {
+          display: flex;
+          justify-content: space-between;
+
+          
+          .forecast-today {
+            .forecast-top {
+              @include font(Nunito Sans, normal, 700, 16px, #373d42);
+              margin-bottom: 20px;
+            }
+            .forecast-date {
+              @include font(Nunito Sans, normal, 600, 14px, #6c757d);
+              margin: 5px 0px;
+            }
+            .weather {
+              @include font(Nunito Sans, normal, 700, 15px, #f29b17);
+              display: flex;
+              align-items: center;
+            }
+            .forecast-today-details {
+              display: flex;
+              justify-content: space-between;
+              .detail {
+                display: flex;
+                flex-direction: column;
+                .detail-name {
+                  @include font(Nunito Sans, normal, 700, 15px, #373d42);
+                }
+                .detail-value {
+                  @include font(Nunito Sans, normal, 600, 14px, #6c757d);
+                }
+              }
+            }
           }
-          .forcast-date{
-            @include font(Nunito Sans, normal, 600, 14px, #6C757D);
+          .forecast-hourly {
+            .hourly-top {
+              @include font(Nunito Sans, normal, 700, 14px, #373d42);
+            }
+            .forecast-hourly-container {
+              display: flex;
+              justify-content: space-between;
+              .hourly-wrapper{
+                margin: 0px 10px;
+                .hourly-time{
+                  @include font(Nunito Sans, normal, 600, 15px, #6C757D);
+                }
+                .hourly-degree{
+                  @include font(Nunito Sans, normal, 600, 13px, #6C757D);
+                }
+                .hourly-percent{
+                  @include font(Nunito Sans, normal, 600, 12px, #6C757D);
+                }
+
+              }
+            }
           }
-          .weather{
-            @include font(Nunito Sans, normal, 600, 14px, #6C757D);
+        }
+        .second-weather-container {
+          margin: 40px 0px;
+          .second-weather-container-top {
+            @include font(Nunito Sans, normal, 700, 14px, #373d42);
+          }
+          .second-weather-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .second-weather-detail{
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              .detail-day{
+                @include font(Nunito Sans, normal, 600, 13px, #373D42);
+              }
+              .detail-date{
+                @include font(Nunito Sans, normal, 600, 13px, #373d42);
+              }
+              .detail-degree{
+                @include font(Nunito Sans, normal, 600, 13px, #6C757D);
+              }
+              .detail-percent{
+                @include font(Nunito Sans, normal, 600, 12px, #6C757D);
+              }
+            }
           }
         }
       }
     }
     .insight-details {
-      .select-layer{
-        .select-top{
-          @include font(Nunito Sans, normal, 700, 18px, #373D42);
+      .select-layer {
+        .select-top {
+          @include font(Nunito Sans, normal, 700, 18px, #373d42);
         }
-        .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label{
-          @include font(Nunito Sans, normal, 600, 16px, #6C757D);
+        .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+          @include font(Nunito Sans, normal, 600, 16px, #6c757d);
         }
       }
       .result-wrapper {
@@ -110,20 +186,19 @@
         }
       }
     }
-    .insight-switch{
-      .user-wrapper{
-        .user-details{
-          display:flex;
+    .insight-switch {
+      .user-wrapper {
+        .user-details {
+          display: flex;
           justify-content: space-between;
           margin: 10px 0px;
-          .details-name{
-            @include font(Nunito Sans, normal, 600, 16px, #6C757D);
+          .details-name {
+            @include font(Nunito Sans, normal, 600, 16px, #6c757d);
           }
         }
       }
     }
   }
-  
 }
 
 .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {

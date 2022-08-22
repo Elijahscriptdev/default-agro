@@ -23,6 +23,12 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Button from "../../../components/common/Button";
+import Divider from "@mui/material/Divider";
+import Slider, { SliderThumb } from '@mui/material/Slider';
+import { styled } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
+import PropTypes from 'prop-types';
+
 
 const MapInsight = () => {
   const queryRef = useRef(null);
@@ -34,6 +40,110 @@ const MapInsight = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+
+
+function ValueLabelComponent(props) {
+  const { children, value } = props;
+
+  return (
+    <Tooltip enterTouchDelay={0} placement="top" title={value}>
+      {children}
+    </Tooltip>
+  );
+}
+
+ValueLabelComponent.propTypes = {
+  children: PropTypes.element.isRequired,
+  value: PropTypes.number.isRequired,
+};
+function valuetext(value) {
+  return `${value}°C`;
+}
+
+const iOSBoxShadow =
+  '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)';
+
+const marks = [
+  {
+    value: 10,
+  },
+  {
+    value: 30,
+  },
+  {
+    value: 40,
+    label: 'March 2020',
+  },
+  {
+    value: 50,
+  },
+  {
+    value: 60,
+  },
+  {
+    value: 70,
+  },
+  {
+    value: 80,
+  },
+  {
+    value: 90,
+  },
+  {
+    value: 100,
+  },
+];
+
+  const IOSSlider = styled(Slider)(({ theme }) => ({
+    color: theme.palette.mode === 'dark' ? '#3880ff' : '#3880ff',
+    height: 2,
+    padding: '15px 0',
+    '& .MuiSlider-thumb': {
+      height: 28,
+      width: 28,
+      backgroundColor: '#fff',
+      boxShadow: iOSBoxShadow,
+      '&:focus, &:hover, &.Mui-active': {
+        boxShadow:
+          '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)',
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          boxShadow: iOSBoxShadow,
+        },
+      },
+    },
+    '& .MuiSlider-valueLabel': {
+      fontSize: 12,
+      fontWeight: 'normal',
+      top: -6,
+      backgroundColor: 'unset',
+      color: theme.palette.text.primary,
+      '&:before': {
+        display: 'none',
+      },
+      '& *': {
+        background: 'transparent',
+        color: theme.palette.mode === 'dark' ? '#fff' : '#000',
+      },
+    },
+    '& .MuiSlider-track': {
+      border: 'none',
+    },
+    '& .MuiSlider-rail': {
+      opacity: 0.5,
+      backgroundColor: '#bfbfbf',
+    },
+    '& .MuiSlider-mark': {
+      backgroundColor: '#bfbfbf',
+      height: 8,
+      width: 1,
+      '&.MuiSlider-markActive': {
+        opacity: 1,
+        backgroundColor: 'currentColor',
+      },
+    },
+  }));
 
   return (
     <div className="mapping">
@@ -77,13 +187,13 @@ const MapInsight = () => {
           className="insight-container"
           sx={{
             display: "flex",
-            flexDirection: { sm: "column", md: "row" },
+            flexDirection: { xs: "column", md: "row" },
           }}
         >
           <Box
             sx={{
-              width: { sm: "100%", md: "60%" },
-              // height: { sm: "334", md: "534px" },
+              width: { xs: "100%", md: "60%" },
+              // height: { xs: "334", md: "534px" },
             }}
             className="map-details"
           >
@@ -92,75 +202,317 @@ const MapInsight = () => {
               src={map}
               sx={{
                 width: "100%",
-                height: { sm: "334", md: "534px" },
+                height: { xs: "334", md: "534px" },
               }}
             />
             <Box className="history">
               <p className="history-top">History</p>
+              <IOSSlider
+                aria-label="ios slider"
+                defaultValue={40}
+                marks={marks}
+                valueLabelDisplay="off"
+                getAriaValueText={valuetext}
+              />
             </Box>
 
             <Box className="weather-forecast">
-              <Box className="forcast-today">
-                <p className="forcast-top">Weather Forecast</p>
-                <p className="forcast-date">Today, Wednesday 20-08-2020</p>
-                <p className="weather">
-                  <Box component="img" src={cloud} />
-                  58°C
-                </p>
-                <p>Feels like 56°C</p>
-                <Box>
-                  <Box>
-                    <p>Dewpoint</p>
-                    <p>55°</p>
+              <Box className="first-weather-container"  sx={{
+              display:"flex",
+              flexDirection:{xs:"column",md:"row"}
+            }}>
+                <Box className="forecast-today">
+                  <p className="forecast-top">Weather Forecast</p>
+                  <p className="forecast-date">Today, Wednesday 20-08-2020</p>
+                  <p className="weather">
+                    <Box component="img" src={cloud} />
+                    58°C
+                  </p>
+                  <p
+                    sx={{
+                      margin: "10px 0px",
+                    }}
+                  >
+                    Feels like 56°C
+                  </p>
+                  <Box className="forecast-today-details">
+                    <Box className="detail">
+                      <p className="detail-name">Dewpoint</p>
+                      <p className="detail-value">55°</p>
+                    </Box>
+                    <Box className="detail">
+                      <p className="detail-name">Wind</p>
+                      <p className="detail-value">4mph E</p>
+                    </Box>
+                    <Box className="detail">
+                      <p className="detail-name">Humidity</p>
+                      <p className="detail-value">87%</p>
+                    </Box>
                   </Box>
-                  <Box>
-                    <p>Wind</p>
-                    <p>4mph E</p>
-                  </Box>
-                  <Box>
-                    <p>Humidity</p>
-                    <p>87%</p>
+                </Box>
+
+                <Divider
+                  orientation="vertical"
+                  sx={{
+                    height:{xs:"2px",md:"100px"},
+                    margin:{xs:"20px 0px",md:"0px"},
+                    borderWidth: "1px"
+                  }}
+                />
+
+                <Box className="forecast-hourly">
+                  <p className="hourly-top">Hourly</p>
+                  <Box className="forecast-hourly-container">
+                    <Box className="hourly-wrapper">
+                      <p className="hourly-time">5pm</p>
+                      <Box component="img" src={cloud} />
+                      <p className="hourly-degree">58°</p>
+                      <p
+                        style={{
+                          display: "flex",
+                          alignItem: "center",
+                        }}
+                        className="hourly-percent"
+                      >
+                        <Box component="img" src={water} />
+                        100%
+                      </p>
+                    </Box>
+                    <Box className="hourly-wrapper">
+                      <p className="hourly-time">5pm</p>
+                      <Box component="img" src={cloud} />
+                      <p className="hourly-degree">58°</p>
+                      <p
+                        style={{
+                          display: "flex",
+                          alignItem: "center",
+                        }}
+                        className="hourly-percent"
+                      >
+                        <Box component="img" src={water} />
+                        100%
+                      </p>
+                    </Box>
+                    <Box className="hourly-wrapper">
+                      <p className="hourly-time">5pm</p>
+                      <Box component="img" src={cloud} />
+                      <p className="hourly-degree">58°</p>
+                      <p
+                        style={{
+                          display: "flex",
+                          alignItem: "center",
+                        }}
+                        className="hourly-percent"
+                      >
+                        <Box component="img" src={water} />
+                        100%
+                      </p>
+                    </Box>
+                    <Box className="hourly-wrapper">
+                      <p className="hourly-time">5pm</p>
+                      <Box component="img" src={cloud} />
+                      <p className="hourly-degree">58°</p>
+                      <p
+                        style={{
+                          display: "flex",
+                          alignItem: "center",
+                        }}
+                        className="hourly-percent"
+                      >
+                        <Box component="img" src={water} />
+                        100%
+                      </p>
+                    </Box>
                   </Box>
                 </Box>
               </Box>
 
-              <Box className="forecast-hourly">
-                <p>Hourly</p>
-                <Box>
-                  <p>5pm</p>
-                  <Box component="img" src={cloud} />
-                  <p>58°</p>
-                  <p>
-                    <Box component="img" src={water} />
-                    100%
-                  </p>
-                </Box>
-                <Box>
-                  <p>5pm</p>
-                  <Box component="img" src={cloud} />
-                  <p>58°</p>
-                  <p>
-                    <Box component="img" src={water} />
-                    100%
-                  </p>
-                </Box>
-                <Box>
-                  <p>5pm</p>
-                  <Box component="img" src={cloud} />
-                  <p>58°</p>
-                  <p>
-                    <Box component="img" src={water} />
-                    100%
-                  </p>
-                </Box>
-                <Box>
-                  <p>5pm</p>
-                  <Box component="img" src={cloud} />
-                  <p>58°</p>
-                  <p>
-                    <Box component="img" src={water} />
-                    100%
-                  </p>
+              <Box className="second-weather-container">
+                <p className="second-weather-container-top">Next 7 days</p>
+                <Box className="second-weather-wrapper">
+                  <Box className="second-weather-detail">
+                    <p className="detail-day">Thur</p>
+                    <p className="detail-date">12/02</p>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-degree"
+                    >
+                      {" "}
+                      <Box component="img" src={cloud} /> 58°
+                    </Box>
+
+                    <p
+                      style={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-percent"
+                    >
+                      <Box component="img" src={water} />
+                      100%
+                    </p>
+                  </Box>
+                  <Box className="second-weather-detail">
+                    <p className="detail-day">Fri</p>
+                    <p className="detail-date">13/02</p>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-degree"
+                    >
+                      {" "}
+                      <Box component="img" src={cloud} /> 58°
+                    </Box>
+
+                    <p
+                      style={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-percent"
+                    >
+                      <Box component="img" src={water} />
+                      100%
+                    </p>
+                  </Box>
+
+                  <Box className="second-weather-detail">
+                    <p className="detail-day">Sat</p>
+                    <p className="detail-date">14/02</p>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-degree"
+                    >
+                      {" "}
+                      <Box component="img" src={cloud} /> 58°
+                    </Box>
+
+                    <p
+                      style={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-percent"
+                    >
+                      <Box component="img" src={water} />
+                      100%
+                    </p>
+                  </Box>
+                  <Box className="second-weather-detail">
+                    <p className="detail-day">Sun</p>
+                    <p className="detail-date">15/02</p>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-degree"
+                    >
+                      {" "}
+                      <Box component="img" src={cloud} /> 58°
+                    </Box>
+
+                    <p
+                      style={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-percent"
+                    >
+                      <Box component="img" src={water} />
+                      100%
+                    </p>
+                  </Box>
+                  <Box className="second-weather-detail">
+                    <p className="detail-day">Mon</p>
+                    <p className="detail-date">16/02</p>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-degree"
+                    >
+                      {" "}
+                      <Box component="img" src={cloud} /> 58°
+                    </Box>
+
+                    <p
+                      style={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-percent"
+                    >
+                      <Box component="img" src={water} />
+                      100%
+                    </p>
+                  </Box>
+                  <Box className="second-weather-detail">
+                    <p className="detail-day">Tue</p>
+                    <p className="detail-date">17/02</p>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-degree"
+                    >
+                      {" "}
+                      <Box component="img" src={cloud} /> 58°
+                    </Box>
+
+                    <p
+                      style={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-percent"
+                    >
+                      <Box component="img" src={water} />
+                      100%
+                    </p>
+                  </Box>
+                  <Box className="second-weather-detail">
+                    <p className="detail-day">Wed</p>
+                    <p className="detail-date">18/02</p>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-degree"
+                    >
+                      {" "}
+                      <Box component="img" src={cloud} /> 58°
+                    </Box>
+
+                    <p
+                      style={{
+                        display: "flex",
+                        alignItem: "center",
+                      }}
+                      className="detail-percent"
+                    >
+                      <Box component="img" src={water} />
+                      100%
+                    </p>
+                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -169,8 +521,8 @@ const MapInsight = () => {
           <Box
             className="insight-details"
             sx={{
-              paddingLeft: { sm: "none", md: "30px" },
-              width: { sm: "40%" },
+              paddingLeft: { xs: "none", md: "30px" },
+              width: { xs: "100%",md:"40%" },
             }}
           >
             <Box className="select-layer">
