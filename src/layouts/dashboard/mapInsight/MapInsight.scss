@@ -31,27 +31,11 @@
   .insight-container {
     margin-top: 30px;
     width: 100%;
-    .map-details{
-      .history{
-        margin-top: 50px;
-        .history-top{
-          @include font(Nunito Sans, normal, 700, 16px, #373D42);
-        }
-      }
-    }
     .insight-details {
-      .select-layer{
-        .select-top{
-          @include font(Nunito Sans, normal, 700, 18px, #373D42);
-        }
-        .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label{
-          @include font(Nunito Sans, normal, 600, 16px, #6C757D);
-        }
-      }
       .result-wrapper {
         display: flex;
         justify-content: space-between;
-        margin: 20px 0px;
+        margin: 10px 0px;
         .result {
           @include font(Nunito Sans, normal, 700, 18px, #373d42);
         }

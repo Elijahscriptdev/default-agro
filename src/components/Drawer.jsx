@@ -56,29 +56,29 @@ const DrawerContent = ({ closeHandler }) => {
   return (
     <List
       sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}
-      component='nav'
-      aria-labelledby='nested-list-subheader'
+      component="nav"
+      aria-labelledby="nested-list-subheader"
       subheader={
         <ListSubheader
-          component='div'
-          id='nested-list-subheader'
+          component="div"
+          id="nested-list-subheader"
           sx={{ padding: "1rem 10px" }}
         >
           <Stack
-            direction='row'
-            alignItems='center'
-            justifyContent='space-between'
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
             sx={{ marginBottom: "60px" }}
           >
-            <img src={tradeBuzaLogo} alt='tradebuza logo' id='drawer-logo' />
+            <img src={tradeBuzaLogo} alt="tradebuza logo" id="drawer-logo" />
             <IconContext.Provider
               value={{ size: "28px", color: `${theme.palette.primary.main}` }}
             >
               <IconButton
-                color='inherit'
-                aria-label='open drawer'
+                color="inherit"
+                aria-label="open drawer"
                 onClick={() => {}}
-                edge='start'
+                edge="start"
                 sx={{
                   display: {
                     xs: "none",
@@ -90,10 +90,10 @@ const DrawerContent = ({ closeHandler }) => {
                 <MenuIcon />
               </IconButton>
               <IconButton
-                color='inherit'
-                aria-label='open drawer'
+                color="inherit"
+                aria-label="open drawer"
                 onClick={closeHandler}
-                edge='start'
+                edge="start"
                 sx={{
                   display: {
                     xs: "block",
@@ -130,11 +130,23 @@ const DrawerContent = ({ closeHandler }) => {
               yes={() => ( */}
           <CustomListItem
             icon={<DashboardIcon />}
-            text='Dashboard'
-            href='/dashboard'
+            text="Dashboard"
+            // href="/dashboard"
             selected={listSelected === 0}
             onClick={handleListItemClick(0)}
-          />
+          >
+            <List component="div" disablePadding>
+              <CustomListItem
+                text="Mapping Insights"
+                href="/dashboard/mapping-insight"
+              />
+              <CustomListItem
+                text="Farm Analysis"
+                href="/dashboard/farm-analysis"
+              />
+            
+            </List>
+          </CustomListItem>
           {/* )}
               no={() => null}
               data={null}
@@ -146,18 +158,18 @@ const DrawerContent = ({ closeHandler }) => {
               yes={() => ( */}
           <CustomListItem
             icon={<UserIcon />}
-            text='User Management'
+            text="User Management"
             selected={listSelected === 1}
             onClick={handleListItemClick(1)}
           >
-            <List component='div' disablePadding>
+            <List component="div" disablePadding>
               {/* <Can
                       role={authenticatedUser?.my_role?.role}
                       perform='users:visit'
                       yes={() => ( */}
               <CustomListItem
-                text='Manage Users'
-                href='/user-management/users'
+                text="Manage Users"
+                href="/user-management/users"
               />
               {/* )}
                       no={() => null}
@@ -165,11 +177,11 @@ const DrawerContent = ({ closeHandler }) => {
 
               <Can
                 role={authenticatedUser?.my_role?.role}
-                perform='farmers:visit'
+                perform="farmers:visit"
                 yes={() => (
                   <CustomListItem
-                    text='Manage Farmers'
-                    href='/user-management/farmers'
+                    text="Manage Farmers"
+                    href="/user-management/farmers"
                   />
                 )}
                 no={() => null}
@@ -178,11 +190,11 @@ const DrawerContent = ({ closeHandler }) => {
 
               <Can
                 role={authenticatedUser?.my_role?.role}
-                perform='sourcing-agents:visit'
+                perform="sourcing-agents:visit"
                 yes={() => (
                   <CustomListItem
-                    text='Manage Sourcing Agents'
-                    href='/user-management/sourcing-agents'
+                    text="Manage Sourcing Agents"
+                    href="/user-management/sourcing-agents"
                   />
                 )}
                 no={() => null}
@@ -197,22 +209,22 @@ const DrawerContent = ({ closeHandler }) => {
 
           <Can
             role={authenticatedUser?.my_role?.role}
-            perform='configuration:visit'
+            perform="configuration:visit"
             yes={() => (
               <CustomListItem
                 icon={<ConfigurationIcon />}
-                text='Configuration'
+                text="Configuration"
                 selected={listSelected === 2}
                 onClick={handleListItemClick(2)}
               >
-                <List component='div' disablePadding>
+                <List component="div" disablePadding>
                   <Can
                     role={authenticatedUser?.my_role?.role}
-                    perform='configuration:crop-profile:visit'
+                    perform="configuration:crop-profile:visit"
                     yes={() => (
                       <CustomListItem
-                        text='Manage Crop Profile'
-                        href='/configurations/crop-profile'
+                        text="Manage Crop Profile"
+                        href="/configurations/crop-profile"
                       />
                     )}
                     no={() => null}
@@ -220,11 +232,11 @@ const DrawerContent = ({ closeHandler }) => {
 
                   <Can
                     role={authenticatedUser?.my_role?.role}
-                    perform='configuration:calendar:visit'
+                    perform="configuration:calendar:visit"
                     yes={() => (
                       <CustomListItem
-                        text='Manage Crop Calendar'
-                        href='/configurations/crop-calendar'
+                        text="Manage Crop Calendar"
+                        href="/configurations/crop-calendar"
                       />
                     )}
                     no={() => null}
@@ -232,11 +244,11 @@ const DrawerContent = ({ closeHandler }) => {
 
                   <Can
                     role={authenticatedUser?.my_role?.role}
-                    perform='configuration:seasons:visit'
+                    perform="configuration:seasons:visit"
                     yes={() => (
                       <CustomListItem
-                        text='Manage Farm Seasons'
-                        href='/configurations/farm-seasons'
+                        text="Manage Farm Seasons"
+                        href="/configurations/farm-seasons"
                       />
                     )}
                     no={() => null}
@@ -249,34 +261,34 @@ const DrawerContent = ({ closeHandler }) => {
 
           <Can
             role={authenticatedUser?.my_role?.role}
-            perform='farm-management:visit'
+            perform="farm-management:visit"
             yes={() => (
               <CustomListItem
                 icon={<FarmIcon />}
-                text='Farm Management'
+                text="Farm Management"
                 selected={listSelected === 3}
                 onClick={handleListItemClick(3)}
               >
-                <List component='div' disablePadding>
+                <List component="div" disablePadding>
                   <Can
                     role={authenticatedUser?.my_role?.role}
-                    perform='farm-management:farm:visit'
+                    perform="farm-management:farm:visit"
                     yes={() => (
                       <CustomListItem
-                        text='Manage Farm Lots'
-                        href='/farm-management/farm-lots'
+                        text="Manage Farm Lots"
+                        href="/farm-management/farm-lots"
                       />
                     )}
                     no={() => null}
                   />
 
                   <CustomListItem
-                    text='Manage Clusters'
-                    href='/farm-management/clusters'
+                    text="Manage Clusters"
+                    href="/farm-management/clusters"
                   />
                   <CustomListItem
-                    text='Manage Sub Clusters'
-                    href='/farm-management/sub-clusters'
+                    text="Manage Sub Clusters"
+                    href="/farm-management/sub-clusters"
                   />
                 </List>
               </CustomListItem>
@@ -289,17 +301,17 @@ const DrawerContent = ({ closeHandler }) => {
               role={authenticatedUser?.my_role?.role}
               perform='input:visit'
               yes={() => ( */}
-            <CustomListItem
+          <CustomListItem
             icon={<DashboardIcon />}
-            text='Verification List'
-            href='/verification'
+            text="Verification List"
+            href="/verification"
             selected={listSelected === 9}
             onClick={handleListItemClick(9)}
           />
           <CustomListItem
             icon={<InputMgtIcon />}
-            text='Tenants'
-            href='/tenants'
+            text="Tenants"
+            href="/tenants"
             selected={listSelected === 4}
             onClick={handleListItemClick(4)}
           />
@@ -314,8 +326,8 @@ const DrawerContent = ({ closeHandler }) => {
               yes={() => ( */}
           <CustomListItem
             icon={<InputMgtIcon />}
-            text='Downloads'
-            href='/downloads'
+            text="Downloads"
+            href="/downloads"
             selected={listSelected === 8}
             onClick={handleListItemClick(8)}
           />
@@ -330,15 +342,15 @@ const DrawerContent = ({ closeHandler }) => {
             yes={() => ( */}
           <CustomListItem
             icon={<DraftsIcon />}
-            text='Settings'
+            text="Settings"
             selected={listSelected === 5}
             onClick={handleListItemClick(5)}
           >
-            <List component='div' disablePadding>
-              <CustomListItem text='Developer' href='/settings/developer' />
+            <List component="div" disablePadding>
+              <CustomListItem text="Developer" href="/settings/developer" />
               <CustomListItem
-                text='Coniguration'
-                href='/settings/configuration'
+                text="Coniguration"
+                href="/settings/configuration"
               />
             </List>
           </CustomListItem>
@@ -349,22 +361,22 @@ const DrawerContent = ({ closeHandler }) => {
 
           <Can
             role={authenticatedUser?.my_role?.role}
-            perform='communication:visit'
+            perform="communication:visit"
             yes={() => (
               <CustomListItem
                 icon={<DraftsIcon />}
-                text='Communication'
+                text="Communication"
                 selected={listSelected === 5}
                 onClick={handleListItemClick(5)}
               >
-                <List component='div' disablePadding>
+                <List component="div" disablePadding>
                   <CustomListItem
-                    text='Communication Setup'
-                    href='/communication/setup'
+                    text="Communication Setup"
+                    href="/communication/setup"
                   />
                   <CustomListItem
-                    text='Messages'
-                    href='/communication/messages'
+                    text="Messages"
+                    href="/communication/messages"
                   />
                 </List>
               </CustomListItem>
@@ -375,16 +387,16 @@ const DrawerContent = ({ closeHandler }) => {
 
           <Can
             role={authenticatedUser?.my_role?.role}
-            perform='collection:visit'
+            perform="collection:visit"
             yes={() => (
               <CustomListItem
                 icon={<CollectionIcon />}
-                text='Collection'
+                text="Collection"
                 selected={listSelected === 6}
                 onClick={handleListItemClick(6)}
               >
-                <List component='div' disablePadding>
-                  <CustomListItem text='Collections' href='/collections' />
+                <List component="div" disablePadding>
+                  <CustomListItem text="Collections" href="/collections" />
                 </List>
               </CustomListItem>
             )}
@@ -394,34 +406,34 @@ const DrawerContent = ({ closeHandler }) => {
 
           <Can
             role={authenticatedUser?.my_role?.role}
-            perform='payment:visit'
+            perform="payment:visit"
             yes={() => (
               <CustomListItem
-                icon={<img src={paymentSVG} alt='' />}
-                text='Payment'
+                icon={<img src={paymentSVG} alt="" />}
+                text="Payment"
                 selected={listSelected === 7}
                 onClick={handleListItemClick(7)}
               >
-                <List component='div' disablePadding>
+                <List component="div" disablePadding>
                   <CustomListItem
-                    text='Transactions'
-                    href='/payment/transactions'
+                    text="Transactions"
+                    href="/payment/transactions"
                   />
                   <Can
                     role={authenticatedUser?.my_role?.role}
-                    perform='payment:disbursement:visit'
+                    perform="payment:disbursement:visit"
                     yes={() => (
                       <CustomListItem
-                        text='Disbursement'
-                        href='/payment/disbursments'
+                        text="Disbursement"
+                        href="/payment/disbursments"
                       />
                     )}
                     no={() => null}
                   />
 
                   <CustomListItem
-                    text='Collections'
-                    href='/payment/collections'
+                    text="Collections"
+                    href="/payment/collections"
                   />
                 </List>
               </CustomListItem>
@@ -460,13 +472,13 @@ function Drawer({ isOpen, toggler }) {
   const drawerWidth = 305;
   return (
     <Box
-      component='nav'
-      id='main-drawer'
+      component="nav"
+      id="main-drawer"
       sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
-      aria-label='Navigation Options'
+      aria-label="Navigation Options"
     >
       <MuiDrawer
-        variant='temporary'
+        variant="temporary"
         open={isOpen}
         onClose={toggler}
         ModalProps={{
@@ -483,7 +495,7 @@ function Drawer({ isOpen, toggler }) {
         {<DrawerContent closeHandler={toggler} />}
       </MuiDrawer>
       <MuiDrawer
-        variant='permanent'
+        variant="permanent"
         open
         sx={{
           display: { xs: "none", sm: "none", md: "block" },

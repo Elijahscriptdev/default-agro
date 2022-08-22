@@ -46,6 +46,9 @@ const FarmActivities = React.lazy(() =>
 const AgentActivities = React.lazy(() =>
   import("./layouts/dashboard/agentActivities/AgentActivities")
 );
+const MapInsight = React.lazy(() =>
+  import("./layouts/dashboard/mapInsight/MapInsight")
+);
 
 const Profile = React.lazy(() => import("./layouts/dashboard/Profile/Profile"));
 const CropProfileSection = React.lazy(() =>
@@ -215,7 +218,8 @@ function App() {
 
               {/* DASHBOARD */}
               <Route path='/dashboard' element={<Dashboard />}>
-                <Route index element={<DashboardIndexSection />} />
+                {/* <Route index element={<DashboardIndexSection />} /> */}
+                <Route index path='mapping-insight' element={<MapInsight />} />
                 <Route
                   path='edit-profile'
                   element={<DashboardIndexSection />}

@@ -1,10 +1,7 @@
 import React, { useRef, useState } from "react";
 import {
   Box,
-  Checkbox,
   FormControl,
-  FormControlLabel,
-  FormGroup,
   Grid,
   IconButton,
   InputAdornment,
@@ -14,10 +11,10 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import "./FarmAnalysis.scss";
+import "./MapInsight.scss";
+import CustomSearchField from "../../../components/common/CustomSearchField";
+import { Search as SearchIcon } from "../../../components/icons/search";
 import map from "../../../assets/map.jpg";
-import cloud from "../../../assets/cloud.png";
-import water from "../../../assets/water.png";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
@@ -25,9 +22,29 @@ import TabPanel from "@mui/lab/TabPanel";
 import Button from "../../../components/common/Button";
 
 const MapInsight = () => {
+  const [partner, setPartner] = React.useState("");
+  const [status, setStatus] = React.useState("");
+  const [state, setState] = React.useState("");
+  const [association, setAssociation] = React.useState("");
+  const [crop, setCrop] = React.useState("");
   const queryRef = useRef(null);
   const [query, setQuery] = useState("");
-  const [profilePage, setProfilePage] = useState("editProfile");
+
+  const handleChangePartner = (event) => {
+    setPartner(event.target.value);
+  };
+  const handleChangeStatus = (event) => {
+    setStatus(event.target.value);
+  };
+  const handleChangeState = (event) => {
+    setState(event.target.value);
+  };
+  const handleChangeAssociation = (event) => {
+    setAssociation(event.target.value);
+  };
+  const handleChangeCrop = (event) => {
+    setCrop(event.target.value);
+  };
 
   const [value, setValue] = React.useState("1");
 
@@ -45,33 +62,105 @@ const MapInsight = () => {
 
       <Box className="mapping-container">
         <p className="unique-id">Unique ID: CAN/123/456</p>
-
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{
-            backgroundColor: (theme) => theme.palette.primary.main,
-            p: 1,
-            width: "100%",
+        <Grid container spacing={2} className="mapping-dropdowns">
+          <Grid item md={2} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Partner</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={partner}
+                label="Partner"
+                onChange={handleChangePartner}
+              >
+                <MenuItem value={10}>...</MenuItem>
+                <MenuItem value={20}>...</MenuItem>
+                <MenuItem value={20}>...</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item md={2} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Status</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={status}
+                label="Partner"
+                onChange={handleChangeStatus}
+              >
+                <MenuItem value={10}>...</MenuItem>
+                <MenuItem value={20}>...</MenuItem>
+                <MenuItem value={20}>...</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item md={2} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">State</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state}
+                label="Partner"
+                onChange={handleChangeState}
+              >
+                <MenuItem value={10}>...</MenuItem>
+                <MenuItem value={20}>...</MenuItem>
+                <MenuItem value={30}>...</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item md={2} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Association</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={association}
+                label="Partner"
+                onChange={handleChangeAssociation}
+              >
+                <MenuItem value={10}>...</MenuItem>
+                <MenuItem value={20}>...</MenuItem>
+                <MenuItem value={30}>...</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item md={2} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Crop</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={crop}
+                label="Partner"
+                onChange={handleChangeCrop}
+              >
+                <MenuItem value={10}>...</MenuItem>
+                <MenuItem value={20}>...</MenuItem>
+                <MenuItem value={30}>...</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+        <CustomSearchField
+          InputProps={{
+            ref: queryRef,
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon fontSize="small" />
+              </InputAdornment>
+            ),
           }}
-        >
-          <Button
-            value="Map View"
-            sx={{
-              backgroundColor: profilePage == "editProfile" ? "white" : null,
-              color: profilePage == "editProfile" ? "black" : null,
-            }}
-            onClick={() => setProfilePage("editProfile")}
-          />
-          <Button
-            value="Spectral View"
-            sx={{
-              backgroundColor: profilePage == "changePassword" ? "white" : null,
-              color: profilePage == "changePassword" ? "black" : null,
-            }}
-            onClick={() => setProfilePage("changePassword")}
-          />
-        </Stack>
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search customers"
+          sx={{
+            width: "100%",
+            maxWidth: { sm: "350px" },
+          }}
+        />
 
         <Box
           className="insight-container"
@@ -80,77 +169,16 @@ const MapInsight = () => {
             flexDirection: { sm: "column", md: "row" },
           }}
         >
-          <Box
-            sx={{
+         <Box  
+          sx={{
               width: { sm: "100%", md: "60%" },
               // height: { sm: "334", md: "534px" },
-            }}
-            className="map-details"
-          >
-            <Box
-              component="img"
-              src={map}
-              sx={{
-                width: "100%",
-                height: { sm: "334", md: "534px" },
-              }}
-            />
-            <Box className="history">
-              <p className="history-top">History</p>
-            </Box>
-
-            <Box className="weather-forecast">
-              <Box className="forcast-today"
-              >
-              <p className="forcast-top">Weather Forecast</p>
-              <p className="forcast-date">Today, Wednesday 20-08-2020</p>
-              <p className="weather"><Box component="img" src={cloud}/>58°C</p>
-              <p>Feels like 56°C</p>
-              <Box >
-                <Box>
-                  <p>Dewpoint</p>
-                  <p>55°</p>
-                </Box>
-                <Box>
-                  <p>Wind</p>
-                  <p>4mph E</p>
-                </Box>
-                <Box>
-                  <p>Humidity</p>
-                  <p>87%</p>
-                </Box>
-              </Box>
-              </Box>
-
-              <Box className="forecast-hourly">
-              <Box>
-                  <p>5pm</p>
-                  <Box component="img" src={cloud}/>
-                  <p>58°</p>
-                  <p><Box component="img" src={water} />100%</p>
-                </Box>
-              <Box>
-                  <p>5pm</p>
-                  <Box component="img" src={cloud}/>
-                  <p>58°</p>
-                  <p><Box component="img" src={water} />100%</p>
-                </Box>
-              <Box>
-                  <p>5pm</p>
-                  <Box component="img" src={cloud}/>
-                  <p>58°</p>
-                  <p><Box component="img" src={water} />100%</p>
-                </Box>
-              <Box>
-                  <p>5pm</p>
-                  <Box component="img" src={cloud}/>
-                  <p>58°</p>
-                  <p><Box component="img" src={water} />100%</p>
-                </Box>
-              </Box>
-
-
-            </Box>
+            }} >
+            <Box component="img" src={map} 
+             sx={{
+              width: "100%",
+              height: { sm: "334", md: "534px" },
+            }}  />
           </Box>
 
           <Box
@@ -160,23 +188,6 @@ const MapInsight = () => {
               width: { sm: "40%" },
             }}
           >
-            <Box className="select-layer">
-              <p className="select-top">Select Layer</p>
-              <FormGroup
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2,1fr)",
-                }}
-              >
-                <FormControlLabel control={<Checkbox />} label="NDVI" />
-                <FormControlLabel control={<Checkbox />} label="Vegetation" />
-                <FormControlLabel control={<Checkbox />} label="Water" />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Non-Vegetation"
-                />
-              </FormGroup>
-            </Box>
             <Box className="result-wrapper">
               <p className="result">Overall Results:</p>
               <p className="result-status">Failed</p>
@@ -206,10 +217,7 @@ const MapInsight = () => {
               </Box>
             </Box>
 
-            <Box
-              sx={{ width: "100%", typography: "body1" }}
-              className="insight-switch"
-            >
+            <Box sx={{ width: "100%", typography: "body1" }} className="insight-switch">
               <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <TabList
@@ -238,10 +246,11 @@ const MapInsight = () => {
                       <p className="details-name">Size:</p>
                       <p className="details-name">5.37Ha</p>
                     </Box>
+                   
                   </Box>
                 </TabPanel>
                 <TabPanel value="2">
-                  <Box className="user-wrapper">
+                <Box className="user-wrapper">
                     <Box className="user-details">
                       <p className="details-name">_-_</p>
                       <p className="details-name">_-_</p>
@@ -258,10 +267,19 @@ const MapInsight = () => {
                       <p className="details-name">_-_</p>
                       <p className="details-name">_-_</p>
                     </Box>
+                   
                   </Box>
                 </TabPanel>
               </TabContext>
             </Box>
+            <Button
+              // onClick={handleModalOpen("add-user", {
+              //   roles: roles || [],
+              // })}
+              href="/dashboard/farm-analysis"
+              value="Analyze Farm"
+              disableElevation
+            />
           </Box>
         </Box>
       </Box>
