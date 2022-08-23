@@ -1,31 +1,185 @@
-.App {
-  text-align: center;
+* {
+  --primary-dark-theme: #009688;
+  --xs-breakpoint: 0px;
+  --sm-breakpoint: 600px;
+  --md-breakpoint: 900px;
+  --lg-breakpoint: 1200px;
+  --xl-breakpoint: 1536px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*:not(svg, path) {
+  color: rgba(108, 117, 125, 1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+* {
+  scroll-behavior: smooth;
 }
 
-.App-header {
-  background-color: #282c34;
+.input-error,
+.input-error .MuiInputBase-root {
+  border: 1px solid #ff0000;
+}
+
+.error {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  color: #ff0000;
+  margin-top: 3px;
+}
+
+#main-drawer [class*="Mui-selected"],
+#main-drawer [class*="Mui-selected"] * {
+  color: var(--primary-dark-theme) !important;
+}
+
+#main-drawer [class*="Mui-selected"] {
+  border-left: 4px solid var(--primary-dark-theme);
+}
+
+#drawer-logo {
+  width: 149px;
+  height: auto;
+  box-sizing: border-box;
+  object-fit: contain;
+  /* border: 1px solid red; */
+}
+
+.drawer-icons {
+  font-size: 24px;
+  color: rgb(142, 155, 167);
+}
+
+.list-item-text [class*="MuiListItemText-"] {
+  font-size: 16px !important;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.input-field .MuiFilledInput-root {
+  border-radius: 50px;
+}
+
+#main-page-content {
+  background-color: #dfe7e8;
+  min-height: calc(100vh - 40px);
+  padding: 0px 40px 36px;
+  max-width: calc(100vw - 305px);
+}
+
+#error-page-content {
+  background-color: #dfe7e8;
   min-height: 100vh;
+  padding: 24px 36px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  /* max-width: calc(100vw - 305px); */
+}
+
+#main-page-content h1,
+#main-page-content h2,
+#main-page-content h3 {
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+#main-page-content h2.with-spinner {
+  display: flex;
+  align-items: center;
+}
+
+#main-page-content h2.with-spinner > *:first-child {
+  display: flex;
+  align-items: center;
+  margin-right: 1em;
+}
+
+#main-page-content > *:first-child {
+  padding: 0;
+}
+
+#main-page-content #quick-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+#main-page-content #quick-nav * {
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: 1rem;
+  font-weight: 600;
+  /* padding-left: 0;
+  padding-right: 0; */
+}
+
+#main-page-content .table-controls p,
+#main-page-content .table-controls label,
+#main-page-content .table-controls select {
+  background-color: transparent;
+  font-size: 14px;
+}
+
+table tr,
+table th {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+table tr:nth-child(even) {
+  background-color: rgba(0, 150, 136, 0.05);
+}
+
+.no-table-data {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-top: 1px solid #e8eaed;
+  /* background-color: rgb(224, 224, 224); */
+  min-height: 200px;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+.farmmanagementheader {
+  flex-wrap: wrap;
+  width: 100%;
+  height: auto;
+  background-color: var(--primary-dark-theme);
+  margin-top: 34px;
+  margin-bottom: 12px;
+  padding: 10px 10px;
+}
+
+.farmmanagementheader .component-wrapper {
+  /* border: 1px solid ; */
+  margin-top: 8px;
+  margin-bottom: 8px;
+  flex-grow: 1;
+}
+
+.filtertext {
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 900px) {
+  #main-page-content {
+    padding: 24px;
+    max-width: unset !important;
+  }
+
+  .hide-on-mobile {
+    display: none !important;
+  }
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +189,101 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.overall {
+  display: flex;
+  flex-direction: row;
+}
+
+/* edit crop profile */
+
+.textfield .MuiFilledInput-root {
+  border-radius: 5px;
+  background-color: #f3f3f4;
+  width: 477.61px;
+  height: 44px;
+}
+.textField .MuiInputLabel-root {
+  margin-top: -9px;
+  margin-left: -6px;
+  font-size: 12px;
+}
+
+.main {
+  border: 3px solid #f8f8f8;
+}
+
+.first-text {
+  font: Nunito;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 27.28px;
+  color: #6c757d;
+  font-weight: bold;
+}
+
+.second-text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.82px;
+  color: #6c757d;
+}
+
+.switch {
+  margin-left: -10px;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+}
+
+.smalltext {
+  font-size: 15px;
+  color: grey;
+  justify-content: center;
+}
+
+.rows {
+  color: grey;
+  font-size: 11px;
+  margin: 3px;
+}
+
+.icons {
+  color: green;
+  font-size: 11px;
+}
+
+.iconsdiv {
+  margin-bottom: 10px;
+}
+
+.div {
+  margin-left: 75%;
+  margin-top: 20px;
+}
+/* add crop profile */
+
+.reacticons {
+  font-size: 13px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.closeicon {
+  color: #009688;
+  font-size: 22px;
+}
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  position: relative;
+  z-index: 99999;
+}
+
+.css-nn0nga-MuiPaper-root-MuiAppBar-root {
+  background-color: #dfe7e8 !important;
+  color: rgba(0, 0, 0, 0.87);
 }

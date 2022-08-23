@@ -1,0 +1,8 @@
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGIN_LOADING = "LOGIN_LOADING";
+
+export const GET_PROFILE_SUCCESS = "GET_PROFILE_SUCCESS";
+export const GET_PROFILE_FAIL = "GET_PROFILE_FAIL";
+
+export const LOGOUT = "LOGOUT";

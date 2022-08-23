@@ -1,0 +1,3 @@
+export const GET_INPUTS = "GET_INPUTS";
+export const GET_INPUTS_SUCCESS = "GET_INPUTS_SUCCESS";
+export const GET_INPUTS_FAIL = "GET_INPUTS_FAIL";
