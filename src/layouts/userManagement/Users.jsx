@@ -206,23 +206,23 @@ function Users() {
           const { original } = row;
           // console.log(original);
           return (
-            <Can
-              role={authenticatedUser?.my_role?.role}
-              perform='user:edit'
-              yes={() => (
-                <IconButton href={`/user-management/edit-user/${original.id}`}>
-                  <EditIcon />
-                </IconButton>
-              )}
-              no={() => null}
-              // no={() => (
-              //   <Tooltip title={`${authenticatedUser?.my_role?.role} cannot perform this action`}>
-              //     <IconButton>
-              //       <EditIcon />
-              //     </IconButton>
-              //   </Tooltip>
-              // )}
-            />
+            // <Can
+            //   role={authenticatedUser?.my_role?.role}
+            //   perform='user:edit'
+            //   yes={() => (
+            <IconButton href={`/user-management/edit-user/${original.id}`}>
+              <EditIcon />
+            </IconButton>
+            // )}
+            // no={() => null}
+            // no={() => (
+            //   <Tooltip title={`${authenticatedUser?.my_role?.role} cannot perform this action`}>
+            //     <IconButton>
+            //       <EditIcon />
+            //     </IconButton>
+            //   </Tooltip>
+            // )}
+            // />
           );
         },
       },

@@ -31,7 +31,6 @@ const Verification = () => {
   const [crop, setCrop] = React.useState("");
   const queryRef = useRef(null);
   const [query, setQuery] = useState("");
-
   // const isLoading = useSelector((state) => state.InputReducer.loading);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(15);
@@ -290,6 +289,7 @@ const Verification = () => {
                 value={partner}
                 label="Partner"
                 onChange={handleChangePartner}
+                disableUnderline="true"
               >
                 <MenuItem value={10}>...</MenuItem>
                 <MenuItem value={20}>...</MenuItem>
@@ -446,7 +446,7 @@ const Verification = () => {
               // onClick={handleModalOpen("add-user", {
               //   roles: roles || [],
               // })}
-              href="/verification/verification-list"
+              
               value="Download"
               disableElevation
             />

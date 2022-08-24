@@ -37,7 +37,6 @@ export const getUsers =
         type: GET_USERS_SUCCESS,
         payload: res,
       });
-      // console.log("first data", res?.data);
     } catch (error) {
       console.log(error);
       dispatch({
@@ -49,19 +48,14 @@ export const getUsers =
   };
 
 export const addUser = (data) => async (dispatch) => {
-  // dispatch({ type: LOADING_USERS, payload: true });
   try {
-    const res = await axiosServices.post(`/users`, data);
+    const res = await axiosServices.post(`/createuser`, data);
 
-    if (res?.success && res?.result) {
-      notify("User added successfully", { type: "success" });
-      dispatch({
-        type: ADD_USER_SUCCESS,
-        payload: res.result,
-      });
-      return res;
-      // dispatch(getUsers({ page: 1 }));
-    }
+    notify("User added successfully", { type: "success" });
+    dispatch({
+      type: ADD_USER_SUCCESS,
+      payload: res.result,
+    });
   } catch (error) {
     console.log(error);
     dispatch({
@@ -82,8 +76,6 @@ export const bulkUploadUsers = (data) => async (dispatch) => {
       {}
     );
 
-    // console.log(res);
-
     if (res?.success && res?.result) {
       notify("Users uploaded successfully", { type: "success" });
       dispatch(getUsers({ page: 1 }));
@@ -96,9 +88,8 @@ export const bulkUploadUsers = (data) => async (dispatch) => {
 };
 
 export const updateUser = (userId, data) => async (dispatch) => {
-  // dispatch({ type: LOADING_USERS, payload: true });
   try {
-    const res = await axiosServices.patch(`/users/${userId}`, data);
+    const res = await axiosServices.post(`/edituserbyadminorsuperadmin`, data);
 
     if (res?.success && res?.result) {
       notify("User Updated successfully", { type: "success" });

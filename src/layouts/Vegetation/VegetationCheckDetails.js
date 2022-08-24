@@ -1,11 +1,11 @@
 import { Box, Divider, Grid, Typography } from "@mui/material";
-import BreadCrumb from "./../../components/common/CustomBreadCrumbs";
+import BreadCrumb from "../../components/common/CustomBreadCrumbs";
 import React from "react";
 import "./ViewMore.scss";
 import map from "./../../assets/map.jpg";
-import Button from "./../../components/common/Button"
+import Button from "../../components/common/Button"
 
-const VerificationList = () => {
+const VegetationCheckDetails = () => {
   return (
     <div className="verification-list">
       <section>
@@ -129,4 +129,4 @@ const VerificationList = () => {
   );
 };
 
-export default VerificationList;
+export default VegetationCheckDetails;

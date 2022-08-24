@@ -56,15 +56,10 @@ function Profile() {
             boxShadow: "0px 5px 20px rgba(108, 117, 125, 0.15)",
             borderRadius: "5px",
             boxSizing: "border-box",
-            // flexWrap: {
-            //   xs: "wrap",
-            //   md: "no-wrap",
-            // },
-            display:"flex",
-            flexDirection:{
-              sm:"column",
-              lg:"row"
-            }
+            flexWrap: {
+              xs: "wrap",
+              lg: "no-wrap",
+            },
           }}
         >
           <Stack
@@ -75,7 +70,7 @@ function Profile() {
               mx: { xs: "auto", lg: 1 },
               mb: 4,
               width: "30%",
-              minWidth: "250px",
+              minWidth: "300px",
               maxWidth: "600px",
               // border: "1px solid",
               // borderColor: {

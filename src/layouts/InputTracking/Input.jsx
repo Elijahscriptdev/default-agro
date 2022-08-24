@@ -119,7 +119,7 @@ const InputTracking = () => {
           const { original } = row;
           // console.log(original);
           return (
-            <IconButton href="/tenants/edit-tenant">
+            <IconButton href={`/tenants/edit-tenant/${original.id}`}>
               <EditIcon />
             </IconButton>
           );

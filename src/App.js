@@ -25,8 +25,6 @@ import "./App.css";
 import Dashboard from "./pages/Dashboard";
 import MiniDrawer from "./components/MiniDrawer";
 import Configuration from "./layouts/Settings/Configuration";
-import VegetationCheck from "./layouts/Vegetation/VegetationCheck";
-import VegetationCheckDetail from "./layouts/Vegetation/ViewMore";
 
 // Import Layout Components for Pages
 const DashboardIndexSection = React.lazy(() =>
@@ -36,8 +34,8 @@ const DashboardIndexSection = React.lazy(() =>
 const FarmAnalysis = React.lazy(() =>
   import("./layouts/dashboard/farmAnalysis/FarmAnalysis")
 );
-const Vegitation = React.lazy(() =>
-  import("./layouts/Vegetation/VegetationCheck")
+const MapInsight = React.lazy(() =>
+  import("./layouts/dashboard/mapInsight/MapInsight")
 );
 const Verification = React.lazy(() =>
   import("./layouts/Verification/Verification")
@@ -51,8 +49,13 @@ const FarmActivities = React.lazy(() =>
 const AgentActivities = React.lazy(() =>
   import("./layouts/dashboard/agentActivities/AgentActivities")
 );
-const MapInsight = React.lazy(() =>
-  import("./layouts/dashboard/mapInsight/MapInsight")
+
+const VegetationCheck = React.lazy(() =>
+  import("./layouts/Vegetation/VegetationCheck")
+);
+
+const VegetationCheckDetails = React.lazy(() =>
+  import("./layouts/Vegetation/VegetationCheckDetails")
 );
 
 const Profile = React.lazy(() => import("./layouts/dashboard/Profile/Profile"));
@@ -118,8 +121,8 @@ const InputTracking = React.lazy(() => import("./layouts/InputTracking/Input"));
 const AddTenants = React.lazy(() =>
   import("./layouts/InputTracking/AddTenants")
 );
-const EditTenants = React.lazy(() =>
-  import("./layouts/InputTracking/EditTenants")
+const EditTenant = React.lazy(() =>
+  import("./layouts/InputTracking/EditTenant2")
 );
 
 const Downloads = React.lazy(() => import("./layouts/downloads/Downloads"));
@@ -296,7 +299,7 @@ function App() {
               <Route path='/tenants' element={<Dashboard />}>
                 <Route index element={<InputTracking />} />
                 <Route path='add-tenant' element={<AddTenants />} />
-                <Route path='edit-tenant' element={<EditTenants />} />
+                <Route path='edit-tenant/:tenantId' element={<EditTenant />} />
               </Route>
 
               {/* Downloads */}
@@ -318,15 +321,21 @@ function App() {
               {/* VERIFICATION */}
               <Route path='/verification' element={<Dashboard />}>
                 <Route index element={<Verification />} />
-                <Route path="verification-list" element={<VerificationList />} />
+                <Route
+                  path='verification-list'
+                  element={<VerificationList />}
+                />
               </Route>
-              
+
               {/* VEGETATION */}
               <Route path='/vegetation-check' element={<Dashboard />}>
                 <Route index element={<VegetationCheck />} />
-                <Route path="vegetation-check-detail" index element={<VegetationCheckDetail />} />
+                <Route
+                  path='vegetation-check-detail'
+                  index
+                  element={<VegetationCheckDetails />}
+                />
               </Route>
-
 
               {/* PAYMENT */}
               <Route path='/payment' element={<Dashboard />}>

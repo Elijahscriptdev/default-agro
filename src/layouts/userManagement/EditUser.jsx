@@ -23,24 +23,28 @@ import { getRoles, getStates } from "../../redux/actions/AppActions";
 
 import { textFieldStyles } from "../../components/Modals/globals";
 
-const getSingleUser = async (userId) => {
-  try {
-    const res = await axiosServices.get(`/users/${userId}`);
-    return res?.result;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-};
-
 function EditUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [roles, setRoles] = useState([]);
+
+  console.log("user 1234", user);
+
+  const role = [
+    {
+      name: "Admin",
+      value: "Admin",
+    },
+    {
+      name: "RSE Agent",
+      value: "RSE Agent",
+    },
+  ];
+
+  const { userId } = useParams();
 
   const dialogTextStyles = {
     ...textFieldStyles,
@@ -58,47 +62,34 @@ function EditUser() {
       JSON.parse(sessionStorage.getItem("user_profile"))
   );
 
-  useEffect(() => {
-    (async (userId) => {
-      // console.log({ farmerId });
-      try {
-        // window.alert('gfgcgc');
-        setIsLoading(true);
-        const response = await getSingleUser(userId);
-        if (response?.data) {
-          // console.log(response.data);
-          setUser(response.data);
-          setIsLoading(false);
-        } else {
-          notify("Failed to get user", { type: "error" });
-          setIsLoading(false);
-        }
-      } catch (error) {
-        notify(error, { type: "error" });
-        setIsLoading(false);
-      }
-    })(params.userId);
+  const getSingleUser = async (userId) => {
+    try {
+      const res = await axiosServices.get(`/getuserbyid/${userId}`);
+      console.log("res12345", res);
+      setUser(res.user);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  };
 
-    dispatch(getStates({}));
-    getRoles(
-      { filterByAuthority: true, authUser: authenticatedUser },
-      setRoles
-    );
-  }, [authenticatedUser, dispatch, params.userId]);
+  useEffect(() => {
+    getSingleUser(userId);
+  }, [userId]);
 
   return (
     <React.Fragment>
       <section>
-        <nav id="quick-nav">
+        <nav id='quick-nav'>
           <BreadCrumb
             breadcrumbs={[
-              <Typography key="1" color="inherit">
+              <Typography key='1' color='inherit'>
                 User Management
               </Typography>,
-              <Link href="/user-management/users" key="2" color="inherit">
+              <Link href='/user-management/users' key='2' color='inherit'>
                 Manage Users
               </Link>,
-              <Typography key="3" color="primary.main">
+              <Typography key='3' color='primary.main'>
                 Edit User
               </Typography>,
             ]}
@@ -106,33 +97,32 @@ function EditUser() {
         </nav>
 
         <Stack
-          direction="column"
+          direction='column'
           px={4}
           py={3}
-          alignItems="flex-start"
+          alignItems='flex-start'
           sx={{
             backgroundColor: "#FFF",
             boxShadow: "0px 5px 20px rgba(108, 117, 125, 0.15)",
             borderRadius: "5px",
           }}
         >
-          <h2 className="with-spinner ml-1.5" style={{ fontSize: "20px" }}>
+          <h2 className='with-spinner ml-1.5' style={{ fontSize: "20px" }}>
             <span>Edit User</span>
-            {isLoading ? <Spinner size={20} color="primary" /> : ""}
+            {isLoading ? <Spinner size={20} color='primary' /> : ""}
           </h2>
-          {/* <h3 className="first-text ml-1.5"></h3> */}
           <Formik
             enableReinitialize={true}
             initialValues={{
               first_name: user?.first_name || "",
               last_name: user?.last_name || "",
               email: user?.email || "",
-              group: user?.group || "",
               bvn: user?.bvn || "",
               mobile: user?.mobile || "",
-              state: user?.state || "",
-              season: user?.season || "",
-              association: user?.association || "",
+              role: user?.role || "",
+              tenant_id: user?.tenant_id ?? "",
+              password: "",
+              id: user?.id ?? "",
             }}
             validationSchema={Yup.object({
               first_name: validations
@@ -142,38 +132,30 @@ function EditUser() {
                 .name("Last name")
                 .required("Last name is required"),
               email: validations.email("Email").required("Email is required"),
-              group: validations
-                .blank("Group")
-                .required("User group is required"),
-              bvn: validations.bvn("BVN"),
-              state: validations.blank("State").required("State is required"),
+              mobile: validations.blank("mobile").required("Phone is required"),
+              role: validations.blank("role").required("Role is required"),
             })}
             onSubmit={async (values, { resetForm }) => {
               const body = {
                 first_name: values.first_name,
                 last_name: values.last_name,
                 email: values.email,
-                group: values.group,
                 bvn: values.bvn,
                 mobile: values.mobile,
-                home_state: values.state,
-                season: values.season,
+                role: values.role,
+                tenant_id: values.tenant_id,
+                password: values.password,
+                id: values.id,
               };
-
-              if (values.association) {
-                body.association = values.association;
-              }
-              // console.log(body);
               setIsUpdating(true);
-              const response = dispatch(updateUser(params.userId, body));
-
+              const response = dispatch(updateUser(userId, body));
               response.then((result) => {
-                // console.log(result);
                 setIsUpdating(false);
-                if (result?.data || result?.success) {
-                  resetForm();
-                  window.setTimeout(() => navigate('/user-management/users'), 1000);
-                }
+                resetForm();
+                window.setTimeout(
+                  () => navigate("/user-management/users"),
+                  1000
+                );
               });
             }}
           >
@@ -190,8 +172,8 @@ function EditUser() {
                 style={{ width: "100%", border: "1px solid transparent" }}
               >
                 <Stack
-                  direction="row"
-                  justifyContent="space-between"
+                  direction='row'
+                  justifyContent='space-between'
                   sx={{
                     flexWrap: {
                       xs: "wrap",
@@ -200,19 +182,19 @@ function EditUser() {
                   }}
                 >
                   <Stack
-                    direction="column"
+                    direction='column'
                     sx={{
                       mx: 1,
                       width: "100%",
                     }}
                   >
-                    <label htmlFor="first_name" className="second-text my-3">
-                      First Name <small className="text-red-500">*</small>
+                    <label htmlFor='first_name' className='second-text my-3'>
+                      First Name <small className='text-red-500'>*</small>
                     </label>
                     <TextField
-                      id="first_name"
+                      id='first_name'
                       sx={dialogTextStyles}
-                      name="first_name"
+                      name='first_name'
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -225,24 +207,24 @@ function EditUser() {
                       }
                     />
                     {errors.first_name && touched.first_name && (
-                      <span className="error">{errors.first_name}</span>
+                      <span className='error'>{errors.first_name}</span>
                     )}
                   </Stack>
 
                   <Stack
-                    direction="column"
+                    direction='column'
                     sx={{
                       mx: 1,
                       width: "100%",
                     }}
                   >
-                    <label htmlFor="last_name" className="second-text my-3">
-                      Last Name <small className="text-red-500">*</small>
+                    <label htmlFor='last_name' className='second-text my-3'>
+                      Last Name <small className='text-red-500'>*</small>
                     </label>
                     <TextField
                       sx={dialogTextStyles}
-                      id="last_name"
-                      name="last_name"
+                      id='last_name'
+                      name='last_name'
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -255,14 +237,14 @@ function EditUser() {
                       }
                     />
                     {errors.last_name && touched.last_name && (
-                      <span className="error">{errors.last_name}</span>
+                      <span className='error'>{errors.last_name}</span>
                     )}
                   </Stack>
                 </Stack>
 
                 <Stack
-                  direction="row"
-                  justifyContent="space-between"
+                  direction='row'
+                  justifyContent='space-between'
                   sx={{
                     flexWrap: {
                       xs: "wrap",
@@ -271,19 +253,19 @@ function EditUser() {
                   }}
                 >
                   <Stack
-                    direction="column"
+                    direction='column'
                     sx={{
                       mx: 1,
                       width: "100%",
                     }}
                   >
-                    <label htmlFor="email" className="second-text my-3">
-                      Email <small className="text-red-500">*</small>
+                    <label htmlFor='email' className='second-text my-3'>
+                      Email <small className='text-red-500'>*</small>
                     </label>
                     <TextField
                       sx={dialogTextStyles}
-                      id="email"
-                      name="email"
+                      id='email'
+                      name='email'
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -294,24 +276,24 @@ function EditUser() {
                       }
                     />
                     {errors.email && touched.email && (
-                      <span className="error">{errors.email}</span>
+                      <span className='error'>{errors.email}</span>
                     )}
                   </Stack>
 
                   <Stack
-                    direction="column"
+                    direction='column'
                     sx={{
                       mx: 1,
                       width: "100%",
                     }}
                   >
-                    <label htmlFor="mobile" className="second-text my-3">
+                    <label htmlFor='mobile' className='second-text my-3'>
                       Phone Number
                     </label>
                     <TextField
                       sx={dialogTextStyles}
-                      id="mobile"
-                      name="mobile"
+                      id='mobile'
+                      name='mobile'
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -322,14 +304,14 @@ function EditUser() {
                       }
                     />
                     {errors.mobile && touched.mobile && (
-                      <span className="error">{errors.mobile}</span>
+                      <span className='error'>{errors.mobile}</span>
                     )}
                   </Stack>
                 </Stack>
 
                 <Stack
-                  direction="row"
-                  justifyContent="space-between"
+                  direction='row'
+                  justifyContent='space-between'
                   sx={{
                     flexWrap: {
                       xs: "wrap",
@@ -338,19 +320,19 @@ function EditUser() {
                   }}
                 >
                   <Stack
-                    direction="column"
+                    direction='column'
                     sx={{
                       mx: 1,
                       width: "100%",
                     }}
                   >
-                    <label htmlFor="bvn" className="second-text my-3">
+                    <label htmlFor='bvn' className='second-text my-3'>
                       BVN
                     </label>
                     <TextField
                       sx={dialogTextStyles}
-                      id="bvn"
-                      name="bvn"
+                      id='bvn'
+                      name='bvn'
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -361,12 +343,12 @@ function EditUser() {
                       }
                     />
                     {errors.bvn && touched.bvn && (
-                      <span className="error">{errors.bvn}</span>
+                      <span className='error'>{errors.bvn}</span>
                     )}
                   </Stack>
 
                   <Stack
-                    direction="column"
+                    direction='column'
                     sx={{
                       mx: 1,
                       width: {
@@ -375,155 +357,41 @@ function EditUser() {
                       },
                     }}
                   >
-                    <label htmlFor="group" className="second-text my-3">
-                      User Group <small className="text-red-500">*</small>
+                    <label htmlFor='group' className='second-text my-3'>
+                      User Group <small className='text-red-500'>*</small>
                     </label>
                     <CustomSelect
-                      name="group"
-                      id="group"
-                      value={values.group}
+                      name='group'
+                      id='group'
+                      value={values.role}
                       onChange={handleChange}
                       noneLabel={<em>Select Group</em>}
-                      iconType="filled"
+                      iconType='filled'
                       width={{ md: "400px", xs: "100%" }}
-                      height="44px"
+                      height='44px'
                       sx={{ backgroundColor: "grey" }}
-                      backgroundColor="#F3F3F4"
-                      disableshadow="true"
-                      options={roles.map((role) => ({
-                        value: role.id,
-                        name: role.role,
+                      backgroundColor='#F3F3F4'
+                      disableshadow='true'
+                      options={role.map((role) => ({
+                        value: role.value,
+                        name: role.name,
                       }))}
                       className={
-                        errors.group && touched.group ? "input-error" : null
+                        errors.role && touched.role ? "input-error" : null
                       }
                       disabled={Object.keys(user).length === 0}
                     />
-                    {errors.group && touched.group && (
-                      <span className="error">{errors.group}</span>
+                    {errors.role && touched.role && (
+                      <span className='error'>{errors.role}</span>
                     )}
                   </Stack>
                 </Stack>
 
-                <Stack
-                  direction="row"
-                  justifyContent="space-between"
-                  sx={{
-                    flexWrap: {
-                      xs: "wrap",
-                      lg: "nowrap",
-                    },
-                  }}
-                >
-                  <Stack
-                    direction="column"
-                    sx={{
-                      mx: 1,
-                      width: {
-                        xs: "100%",
-                        // md: "auto",
-                      },
-                    }}
-                  >
-                    <label htmlFor="season" className="second-text my-3">
-                      Season
-                    </label>
-                    <TextField
-                      sx={dialogTextStyles}
-                      id="season"
-                      name="season"
-                      InputProps={{ style: { height: "44px" } }}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      disabled={Object.keys(user).length === 0}
-                      value={values.season}
-                      className={
-                        errors.season && touched.season ? "input-error" : null
-                      }
-                    />
-                    {errors.season && touched.season && (
-                      <span className="error">{errors.season}</span>
-                    )}
-                  </Stack>
-
-                  <Stack
-                    direction="column"
-                    sx={{
-                      mx: 1,
-                      width: {
-                        xs: "100%",
-                        // md: "auto",
-                      },
-                    }}
-                  >
-                    <label htmlFor="state" className="second-text my-3">
-                      Home State <small className="text-red-500">*</small>
-                    </label>
-                    <CustomSelect
-                      name="state"
-                      id="state"
-                      value={values.state}
-                      onChange={handleChange}
-                      noneLabel={<em>Select State</em>}
-                      iconType="filled"
-                      width={{ md: "400px", xs: "100%" }}
-                      height="44px"
-                      sx={{ backgroundColor: "grey" }}
-                      backgroundColor="#F3F3F4"
-                      disableshadow="true"
-                      options={Object.values(states).map((eachState) => ({
-                        name: eachState.name,
-                        value: eachState.state_id,
-                      }))}
-                      disabled={Object.keys(user).length === 0}
-                      className={
-                        errors.state && touched.state ? "input-error" : null
-                      }
-                    />
-                    {errors.state && touched.state && (
-                      <span className="error">{errors.state}</span>
-                    )}
-                  </Stack>
-                </Stack>
-
-                <Stack
-                  direction="column"
-                  sx={{
-                    mx: 1,
-                    width: {
-                      xs: "100%",
-                      // md: "auto",
-                    },
-                  }}
-                >
-                  <label htmlFor="association" className="second-text my-3">
-                    Association
-                  </label>
-                  <TextField
-                    sx={dialogTextStyles}
-                    id="association"
-                    name="association"
-                    InputProps={{ style: { height: "44px" } }}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    disabled={Object.keys(user).length === 0}
-                    value={values.association}
-                    className={
-                      errors.association && touched.association
-                        ? "input-error"
-                        : null
-                    }
-                  />
-                  {errors.association && touched.association && (
-                    <span className="error">{errors.association}</span>
-                  )}
-                </Stack>
-
-                <div className="buttons mt-8 ml-1.5">
-                  <div className="">
+                <div className='buttons mt-8 ml-1.5'>
+                  <div className=''>
                     <Button
                       disabled={Object.keys(user).length === 0 || isUpdating}
-                      type="submit"
+                      type='submit'
                       value={isUpdating ? "Updating..." : "Submit"}
                     />
                   </div>

@@ -72,23 +72,22 @@ function AddTenants() {
 
   return (
     <React.Fragment>
-        <section>
+      <section>
         <nav id='quick-nav'>
           <BreadCrumb
             breadcrumbs={[
               <Typography key='1' color='inherit'>
-                User Management
+                Tenants
               </Typography>,
-              <Link href='/user-management/users' key='2' color='inherit'>
-                Manage Users
+              <Link href='/tenants' key='2' color='inherit'>
+                Manage Tenants
               </Link>,
               <Typography key='3' color='primary.main'>
-                Add User
+                Add Tenant
               </Typography>,
             ]}
           />
         </nav>
-  
 
         <Stack
           direction='column'

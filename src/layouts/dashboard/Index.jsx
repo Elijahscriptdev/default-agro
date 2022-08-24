@@ -20,14 +20,16 @@ export default function DashboardIndexSection() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
-  const dashboardData = useSelector(
-    (state) => state.DashboardReducer.dashboardData
-  );
+  // const dashboardData = useSelector(
+  //   (state) => state.DashboardReducer.dashboardData
+  // );
+  const dashboardData = [];
   const isLoading = useSelector((state) => state.DashboardReducer.loading);
 
-  const crops = useSelector(
-    (state) => state.ConfigReducer.cropProfiles?.data || []
-  );
+  // const crops = useSelector(
+  //   (state) => state.ConfigReducer.cropProfiles?.data || []
+  // );
+  const crops = [];
 
   // onChange function for select
   const handleLimitChange = (e) => {
@@ -81,21 +83,21 @@ export default function DashboardIndexSection() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getDashboardDetails());
-    dispatch(getCropProfiles());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getDashboardDetails());
+  //   dispatch(getCropProfiles());
+  // }, [dispatch]);
 
   return (
     <section>
-      <nav id="quick-nav">
+      <nav id='quick-nav'>
         <span>Dashboard</span>
       </nav>
 
       <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
+        direction='row'
+        justifyContent='space-between'
+        alignItems='center'
         sx={{
           flexWrap: {
             xs: "wrap",
@@ -122,20 +124,20 @@ export default function DashboardIndexSection() {
           }}
         />
 
-        <Stack direction="row" spacing={2} sx={{ my: 2 }}>
+        <Stack direction='row' spacing={2} sx={{ my: 2 }}>
           <Button
-            href="/dashboard/farm-analysis"
-            value="Farm Analysis"
+            href='/dashboard/farm-analysis'
+            value='Farm Analysis'
             disableElevation
           />
           <Button
-            href="/dashboard/farm-activities"
-            value="Farm Activities"
+            href='/dashboard/farm-activities'
+            value='Farm Activities'
             disableElevation
           />
           <Button
-            href="/dashboard/agent-activities"
-            value="Agent Activities"
+            href='/dashboard/agent-activities'
+            value='Agent Activities'
             disableElevation
           />
         </Stack>
@@ -144,12 +146,12 @@ export default function DashboardIndexSection() {
       <h2 style={{ fontSize: "20px" }}>Activities Map</h2>
 
       <Box>
-        <img src={require("../../assets/map.jpg")} width="100%" alt="Hello" />
+        <img src={require("../../assets/map.jpg")} width='100%' alt='Hello' />
       </Box>
 
       <Stack
-        direction="row"
-        alignItems="stretch"
+        direction='row'
+        alignItems='stretch'
         spacing={3}
         sx={{
           mt: 6,
@@ -165,14 +167,14 @@ export default function DashboardIndexSection() {
           <CardContent sx={{ color: "white" }}>
             <Typography
               sx={{ fontSize: 18, fontWeight: 700 }}
-              color="inherit"
+              color='inherit'
               gutterBottom
             >
               Total Expected Yield (MT)
             </Typography>
             <Typography
-              variant="h5"
-              component="div"
+              variant='h5'
+              component='div'
               sx={{ color: "inherit", fontSize: 24, fontWeight: 800 }}
             >
               {isLoading ? <Spinner size={20} /> : dashboardData.total_yield}
@@ -184,14 +186,14 @@ export default function DashboardIndexSection() {
           <CardContent sx={{ color: "white" }}>
             <Typography
               sx={{ fontSize: 18, fontWeight: 700 }}
-              color="inherit"
+              color='inherit'
               gutterBottom
             >
               Total Acreage (HA)
             </Typography>
             <Typography
-              variant="h5"
-              component="div"
+              variant='h5'
+              component='div'
               sx={{ color: "inherit", fontSize: 24, fontWeight: 800 }}
             >
               {isLoading ? <Spinner size={20} /> : dashboardData.total_acreage}
@@ -203,14 +205,14 @@ export default function DashboardIndexSection() {
           <CardContent sx={{ color: "white" }}>
             <Typography
               sx={{ fontSize: 18, fontWeight: 700 }}
-              color="inherit"
+              color='inherit'
               gutterBottom
             >
               Total Number of Farmers
             </Typography>
             <Typography
-              variant="h5"
-              component="div"
+              variant='h5'
+              component='div'
               sx={{ color: "inherit", fontSize: 24, fontWeight: 800 }}
             >
               {isLoading ? (
@@ -223,14 +225,10 @@ export default function DashboardIndexSection() {
         </Card>
       </Stack>
 
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <h2 className="with-spinner" style={{ fontSize: "20px" }}>
+      <Stack direction='row' justifyContent='space-between' alignItems='center'>
+        <h2 className='with-spinner' style={{ fontSize: "20px" }}>
           <span>Expected Yield / Farm</span>
-          {isLoading ? <Spinner size={20} color="primary" /> : ""}
+          {isLoading ? <Spinner size={20} color='primary' /> : ""}
         </h2>
 
         <TableControls

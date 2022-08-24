@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { validations } from "../../utils/validations";
-import Can, { check } from "../../utils/rbac/Can";
 
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -12,20 +10,28 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 
 import CustomSelect from "../../components/common/CustomSelect";
+import Spinner from "../../components/Spinner";
 import BreadCrumb from "../../components/common/CustomBreadCrumbs";
 import Button from "../../components/common/Button";
+import { validations } from "../../utils/validations";
 
-import { addUser } from "../../redux/actions/UserManagementActions";
-// import { getRoles } from "../../redux/actions/AppActions";
-// import { getTenants } from "../../redux/actions/TenantActions";
+import axiosServices from "../../services/axiosServices";
+import { notify } from "../../utils/toastNotification";
 
-// import { notify } from "../../utils/toastNotification";
+import { updateUser } from "../../redux/actions/UserManagementActions";
+import { getRoles, getStates } from "../../redux/actions/AppActions";
+
 import { textFieldStyles } from "../../components/Modals/globals";
 
-function AddUser() {
+function EditTenant2() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isAdding, setIsAdding] = useState(false);
+
+  const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  console.log("user 1234", user);
 
   const role = [
     {
@@ -38,13 +44,7 @@ function AddUser() {
     },
   ];
 
-  const authenticatedUser = useSelector(
-    (state) =>
-      state.AuthReducer.userProfile ||
-      JSON.parse(sessionStorage.getItem("user_profile"))
-  );
-
-  const tenants = useSelector((state) => state.TenantReducer.tenants);
+  const { userId } = useParams();
 
   const dialogTextStyles = {
     ...textFieldStyles,
@@ -54,31 +54,28 @@ function AddUser() {
     },
   };
 
-  // useEffect(() => {
-  //   getRoles(
-  //     { filterByAuthority: true, authUser: authenticatedUser },
-  //     setRoles
-  //   );
-  //   if (
-  //     check({
-  //       role: authenticatedUser?.my_role?.role,
-  //       action: "user:create:add-tenant-info",
-  //     })
-  //   ) {
-  //     dispatch(getTenants({ page: 1 }));
-  //   }
-  // }, [authenticatedUser, authenticatedUser?.my_role?.role, dispatch]);
+  const params = useParams();
+  const states = useSelector((state) => state.AppReducer.states);
+  const authenticatedUser = useSelector(
+    (state) =>
+      state.AuthReducer.userProfile ||
+      JSON.parse(sessionStorage.getItem("user_profile"))
+  );
 
-  const validationSchema = Yup.object({
-    first_name: validations
-      .name("First name")
-      .required("First name is required"),
-    last_name: validations.name("Last name").required("Last name is required"),
-    email: validations.email().required("Email is required"),
-    password: validations.password("Password").required("Password is required"),
-    group: validations.blank().required("User group is required"),
-    bvn: validations.bvn("BVN"),
-  });
+  const getSingleUser = async (userId) => {
+    try {
+      const res = await axiosServices.get(`/getuserbyid/${userId}`);
+      console.log("res12345", res);
+      setUser(res.user);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    getSingleUser(userId);
+  }, [userId]);
 
   return (
     <React.Fragment>
@@ -87,13 +84,13 @@ function AddUser() {
           <BreadCrumb
             breadcrumbs={[
               <Typography key='1' color='inherit'>
-                User Management
+                Tenants
               </Typography>,
-              <Link href='/user-management/users' key='2' color='inherit'>
-                Manage Users
+              <Link href='/tenants' key='2' color='inherit'>
+                Manage Tenants
               </Link>,
-              <Typography key='3' color='primary.main'>
-                Add User
+              <Typography key='1' color='inherit'>
+                Edit Tenants
               </Typography>,
             ]}
           />
@@ -110,44 +107,48 @@ function AddUser() {
             borderRadius: "5px",
           }}
         >
-          <h3 className='first-text ml-1.5'>Add New User</h3>
+          <h2 className='with-spinner ml-1.5' style={{ fontSize: "20px" }}>
+            <span>Edit User</span>
+            {isLoading ? <Spinner size={20} color='primary' /> : ""}
+          </h2>
           <Formik
+            enableReinitialize={true}
             initialValues={{
-              first_name: "",
-              last_name: "",
-              email: "",
-              password: "",
-              group: "",
-              bvn: "",
-              phone: "",
-              tenant: "",
+              first_name: user?.first_name || "",
+              email: user?.email || "",
             }}
-            validationSchema={validationSchema}
+            validationSchema={Yup.object({
+              first_name: validations
+                .name("First name")
+                .required("First name is required"),
+              last_name: validations
+                .name("Last name")
+                .required("Last name is required"),
+              email: validations.email("Email").required("Email is required"),
+              mobile: validations.blank("mobile").required("Phone is required"),
+              role: validations.blank("role").required("Role is required"),
+            })}
             onSubmit={async (values, { resetForm }) => {
               const body = {
                 first_name: values.first_name,
                 last_name: values.last_name,
                 email: values.email,
-                password: values.password,
-                role: values.group,
-                tenant_id: values.tenant || "TN-40",
                 bvn: values.bvn,
-                mobile: values.phone,
+                mobile: values.mobile,
+                role: values.role,
+                tenant_id: values.tenant_id,
+                password: values.password,
+                id: values.id,
               };
-              // console.log(body);
-              setIsAdding(true);
-              const response = dispatch(addUser(body));
-
+              setIsUpdating(true);
+              const response = dispatch(updateUser(userId, body));
               response.then((result) => {
-                console.log(result);
-                setIsAdding(false);
-                if (result?.data || result?.success) {
-                  resetForm();
-                  window.setTimeout(
-                    () => navigate("/user-management/users"),
-                    1000
-                  );
-                }
+                setIsUpdating(false);
+                resetForm();
+                window.setTimeout(
+                  () => navigate("/user-management/users"),
+                  1000
+                );
               });
             }}
           >
@@ -190,6 +191,7 @@ function AddUser() {
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      disabled={Object.keys(user).length === 0}
                       value={values.first_name}
                       className={
                         errors.first_name && touched.first_name
@@ -212,7 +214,6 @@ function AddUser() {
                     <label htmlFor='last_name' className='second-text my-3'>
                       Last Name <small className='text-red-500'>*</small>
                     </label>
-                    {/* <Modaltextfield /> */}
                     <TextField
                       sx={dialogTextStyles}
                       id='last_name'
@@ -220,6 +221,7 @@ function AddUser() {
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      disabled={Object.keys(user).length === 0}
                       value={values.last_name}
                       className={
                         errors.last_name && touched.last_name
@@ -260,6 +262,7 @@ function AddUser() {
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      disabled={Object.keys(user).length === 0}
                       value={values.email}
                       className={
                         errors.email && touched.email ? "input-error" : null
@@ -277,25 +280,26 @@ function AddUser() {
                       width: "100%",
                     }}
                   >
-                    <label htmlFor='phone' className='second-text my-3'>
+                    <label htmlFor='mobile' className='second-text my-3'>
                       Phone Number
                     </label>
                     <TextField
                       sx={dialogTextStyles}
-                      id='phone'
-                      name='phone'
+                      id='mobile'
+                      name='mobile'
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.phone}
+                      disabled={Object.keys(user).length === 0}
+                      value={values.mobile}
                       className={
-                        errors.phone && touched.phone ? "input-error" : null
+                        errors.mobile && touched.mobile ? "input-error" : null
                       }
                     />
+                    {errors.mobile && touched.mobile && (
+                      <span className='error'>{errors.mobile}</span>
+                    )}
                   </Stack>
-                  {errors.phone && touched.phone && (
-                    <span className='error'>{errors.phone}</span>
-                  )}
                 </Stack>
 
                 <Stack
@@ -312,32 +316,27 @@ function AddUser() {
                     direction='column'
                     sx={{
                       mx: 1,
-                      width: {
-                        xs: "100%",
-                        // md: "auto",
-                      },
+                      width: "100%",
                     }}
                   >
-                    <label htmlFor='password' className='second-text my-3'>
-                      Password <small className='text-red-500'>*</small>
+                    <label htmlFor='bvn' className='second-text my-3'>
+                      BVN
                     </label>
                     <TextField
-                      type='password'
                       sx={dialogTextStyles}
-                      id='password'
-                      name='password'
+                      id='bvn'
+                      name='bvn'
                       InputProps={{ style: { height: "44px" } }}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.password}
+                      disabled={Object.keys(user).length === 0}
+                      value={values.bvn === null ? user?.bvn : values.bvn}
                       className={
-                        errors.password && touched.password
-                          ? "input-error"
-                          : null
+                        errors.bvn && touched.bvn ? "input-error" : null
                       }
                     />
-                    {errors.password && touched.password && (
-                      <span className='error'>{errors.password}</span>
+                    {errors.bvn && touched.bvn && (
+                      <span className='error'>{errors.bvn}</span>
                     )}
                   </Stack>
 
@@ -345,7 +344,10 @@ function AddUser() {
                     direction='column'
                     sx={{
                       mx: 1,
-                      width: "100%",
+                      width: {
+                        xs: "100%",
+                        // md: "auto",
+                      },
                     }}
                   >
                     <label htmlFor='group' className='second-text my-3'>
@@ -354,7 +356,7 @@ function AddUser() {
                     <CustomSelect
                       name='group'
                       id='group'
-                      value={values.group}
+                      value={values.role}
                       onChange={handleChange}
                       noneLabel={<em>Select Group</em>}
                       iconType='filled'
@@ -368,90 +370,22 @@ function AddUser() {
                         name: role.name,
                       }))}
                       className={
-                        errors.group && touched.group ? "input-error" : null
+                        errors.role && touched.role ? "input-error" : null
                       }
+                      disabled={Object.keys(user).length === 0}
                     />
-                    {errors.group && touched.group && (
-                      <span className='error'>{errors.group}</span>
+                    {errors.role && touched.role && (
+                      <span className='error'>{errors.role}</span>
                     )}
                   </Stack>
-                </Stack>
-
-                <Can
-                  role={authenticatedUser?.my_role?.role}
-                  perform='user:create:add-tenant-info'
-                  yes={() => (
-                    <Stack
-                      direction='column'
-                      sx={{
-                        mx: 1,
-                      }}
-                    >
-                      <label htmlFor='tenant' className='second-text my-3'>
-                        Select Tenant
-                      </label>
-                      <CustomSelect
-                        name='tenant'
-                        id='tenant'
-                        value={values.tenant}
-                        onChange={handleChange}
-                        noneLabel={<em>Select</em>}
-                        iconType='filled'
-                        width='100%'
-                        height='44px'
-                        sx={{ backgroundColor: "grey" }}
-                        backgroundColor='#F3F3F4'
-                        disableshadow='true'
-                        options={tenants.map((eachTenant) => ({
-                          value: eachTenant.id,
-                          name: eachTenant.name,
-                        }))}
-                      />
-                      {errors.tenant && touched.tenant && (
-                        <span className='error'>{errors.tenant}</span>
-                      )}
-                    </Stack>
-                  )}
-                  no={() => null}
-                />
-
-                <h3 style={{ marginTop: "2rem", marginBottom: "0.5rem" }}>
-                  Other Information
-                </h3>
-                <Stack
-                  direction='column'
-                  sx={{
-                    mx: 1,
-                    width: {
-                      xs: "100%",
-                      md: "auto",
-                    },
-                  }}
-                >
-                  <label htmlFor='bvn' className='second-text my-3'>
-                    BVN
-                  </label>
-                  <TextField
-                    sx={dialogTextStyles}
-                    id='bvn'
-                    name='bvn'
-                    InputProps={{ style: { height: "44px" } }}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.bvn}
-                    className={errors.bvn && touched.bvn ? "input-error" : null}
-                  />
-                  {errors.bvn && touched.bvn && (
-                    <span className='error'>{errors.bvn}</span>
-                  )}
                 </Stack>
 
                 <div className='buttons mt-8 ml-1.5'>
                   <div className=''>
                     <Button
+                      disabled={Object.keys(user).length === 0 || isUpdating}
                       type='submit'
-                      value={isAdding ? "Adding..." : "Submit"}
-                      disabled={isAdding}
+                      value={isUpdating ? "Updating..." : "Submit"}
                     />
                   </div>
                 </div>
@@ -464,4 +398,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default EditTenant2;
