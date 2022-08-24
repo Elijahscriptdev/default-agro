@@ -25,6 +25,7 @@ import "./App.css";
 import Dashboard from "./pages/Dashboard";
 import MiniDrawer from "./components/MiniDrawer";
 import Configuration from "./layouts/Settings/Configuration";
+import VegetationCheck from "./layouts/Vegetation/VegetationCheck";
 
 // Import Layout Components for Pages
 const DashboardIndexSection = React.lazy(() =>
@@ -33,6 +34,9 @@ const DashboardIndexSection = React.lazy(() =>
 // const Programme = React.lazy(() => import("./layouts/dashboard/Programme"));
 const FarmAnalysis = React.lazy(() =>
   import("./layouts/dashboard/farmAnalysis/FarmAnalysis")
+);
+const Vegitation = React.lazy(() =>
+  import("./layouts/Vegetation/VegetationCheck")
 );
 const Verification = React.lazy(() =>
   import("./layouts/Verification/Verification")
@@ -112,6 +116,9 @@ const ViewSubclusterLots = React.lazy(() =>
 const InputTracking = React.lazy(() => import("./layouts/InputTracking/Input"));
 const AddTenants = React.lazy(() =>
   import("./layouts/InputTracking/AddTenants")
+);
+const EditTenants = React.lazy(() =>
+  import("./layouts/InputTracking/EditTenants")
 );
 
 const Downloads = React.lazy(() => import("./layouts/downloads/Downloads"));
@@ -288,6 +295,7 @@ function App() {
               <Route path='/tenants' element={<Dashboard />}>
                 <Route index element={<InputTracking />} />
                 <Route path='add-tenant' element={<AddTenants />} />
+                <Route path='edit-tenant' element={<EditTenants />} />
               </Route>
 
               {/* Downloads */}
@@ -311,6 +319,12 @@ function App() {
                 <Route index element={<Verification />} />
                 <Route path="verification-list" element={<VerificationList />} />
               </Route>
+              
+              {/* VEGETATION */}
+              <Route path='/vegetation-check' element={<Dashboard />}>
+                <Route index element={<VegetationCheck />} />
+              </Route>
+
 
               {/* PAYMENT */}
               <Route path='/payment' element={<Dashboard />}>

@@ -18,35 +18,35 @@ const Developer = () => {
   return (
     <React.Fragment>
       <section>
-        <nav id='quick-nav'>
+        <nav id="quick-nav">
           <BreadCrumb
             breadcrumbs={[
-              <Typography key='1' color='inherit'>
+              <Typography key="1" color="inherit">
                 Settings
               </Typography>,
-              <Typography key='2' color='primary.main'>
+              <Typography key="2" color="primary.main">
                 Developer
               </Typography>,
             ]}
           />
         </nav>
 
-        <Box className='section__wrapper'>
+        <Box className="section__wrapper">
           <h2>API Keys</h2>
           <Box
-            className='section__wrapper__content'
+            className="section__wrapper__content"
             sx={{
               flexWrap: { xs: "wrap", md: "nowrap" },
             }}
           >
-            <Box className='section__wrapper__content__item'>
+            <Box className="section__wrapper__content__item">
               <input
-                type='password'
-                placeholder='****************************************'
+                type="password"
+                placeholder="****************************************"
               />
-              <Box className='cta-btn'>
+              <Box className="cta-btn">
                 <Button
-                  value='Generate a new key'
+                  value="Generate a new key"
                   sx={{
                     width: "200px",
                     height: "39px",
@@ -56,18 +56,21 @@ const Developer = () => {
                 />
 
                 <Button
-                  value='Delete Key'
+                  value="Delete Key"
                   sx={{
                     width: "200px",
                     height: "39px",
                     fontSize: "14px",
                     fontWeight: 600,
+                    background: "#FFFFFF",
+                    border: "1px solid rgba(249, 9, 9, 0.83)",
+                    color: "rgba(249, 9, 9, 0.83)",
                   }}
                 />
               </Box>
             </Box>
             <Button
-              value='Add New Schedule'
+              value="Add New Schedule"
               sx={{
                 width: "200px",
                 height: "39px",
@@ -78,24 +81,25 @@ const Developer = () => {
           </Box>
 
           <h2>Webhook URL</h2>
-          <Box className='section2'>
-            <Box className='form-wrap'>
+          <Box className="section2">
+            <Box className="form-wrap">
               <label>Enter Webhook URL</label>
-              <input type='password' placeholder='' />
+              <input type="password" placeholder="" />
             </Box>
-            <Box className='cta-btn'>
+            <Box className="cta-btn">
               <Button
-                value='Test Connection'
+                value="Test Connection"
                 sx={{
                   width: "200px",
                   height: "39px",
                   fontSize: "14px",
                   fontWeight: 600,
+                  background: "#001896",
                 }}
               />
 
               <Button
-                value='Save'
+                value="Save"
                 sx={{
                   width: "200px",
                   height: "39px",

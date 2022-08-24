@@ -1,0 +1,36 @@
+@mixin font($f, $s, $w, $size, $c) {
+  font-family: $f;
+  font-style: $s;
+  font-weight: $w;
+  font-size: $size;
+  color: $c;
+}
+
+.edit-tenants {
+  .edit-tenant-container {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    .edit-tenant-top {
+      @include font(Nunito Sans, normal, 800, 18px, #373d42);
+      margin-bottom: 30px;
+    }
+    .tenant-logo {
+      background: #ffffff;
+      border: 1px solid rgba(108, 117, 125, 0.15);
+      box-shadow: -2px 4px 4px rgba(75, 75, 90, 0.075);
+      border-radius: 5px;
+      width: 250px;
+      height: 188px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 30px;
+    }
+    .edit-tenant-form{
+        .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+            min-width: 477.61px ;
+        }
+    }
+  }
+}

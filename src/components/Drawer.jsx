@@ -354,6 +354,14 @@ const DrawerContent = ({ closeHandler }) => {
               />
             </List>
           </CustomListItem>
+
+          <CustomListItem
+            icon={<InputMgtIcon />}
+            text="Vegetation Check"
+            href="/vegetation-check"
+            selected={listSelected === 13}
+            onClick={handleListItemClick(13)}
+          />
           {/* )}
             no={() => null}
             data={null}
