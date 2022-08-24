@@ -72,7 +72,7 @@ const VegetationCheck = () => {
         const { original } = row;
         // console.log(original);
         return (
-          <IconButton>
+          <IconButton href="/vegetation-check/vegetation-check-detail">
             <Box component="img" src={EyeIcon} />
           </IconButton>
         );

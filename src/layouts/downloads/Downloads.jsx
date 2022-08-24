@@ -27,6 +27,7 @@ import { getInputs } from "../../redux/actions/InputActions";
 
 import CustomSearchField from "../../components/common/CustomSearchField";
 import { InputAdornment } from "@mui/material";
+import DownloadIcon from "./../../assets/downloadIcon.svg"
 
 const Downloads = () => {
   const dispatch = useDispatch();
@@ -73,18 +74,95 @@ const Downloads = () => {
         accessor: "name",
       },
       {
-        Header: "Description",
-        accessor: "description",
+        Header: "Status",
+        Cell: ({ value, row }) => {
+          // const { original } = row;
+          // console.log(original);
+          return (
+            <Box
+              sx={{
+                fontFamily: "Nunito",
+                fontStyle: "normal",
+                fontWeight: 600,
+                fontSize: "14px",
+                color: "#F29B17",
+                background: "rgba(242, 155, 23, 0.26)",
+                border: "0.6px solid #F29B17",
+                borderRadius: "12px",
+                padding: "5px 10px",
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center",
+                width: "74px",
+              }}
+            >
+              Pending
+            </Box>
+          );
+        },
       },
       {
-        Header: "Tenants",
-        accessor: "tenant_id",
+        Header: "Date Created",
+        Cell: ({ value, row }) => {
+          // const { original } = row;
+          // console.log(original);
+          return (
+            <Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography>2020-03-13</Typography>
+                <Typography
+                  sx={{
+                    color: "#009688",
+                  }}
+                >
+                  10:41:12
+                </Typography>
+              </Box>
+            </Box>
+          );
+        },
+      },
+      {
+        Header: "Download",
+        Cell: ({ value, row }) => {
+          // const { original } = row;
+          // console.log(original);
+          return (
+            <IconButton >
+              <Box component="img" src={DownloadIcon} />
+            </IconButton>
+          );
+        },
       },
     ],
     []
   );
 
-  const tableData = useMemo(() => inputs || [], [inputs]);
+  const data = [
+    {
+    name:"Farmer Export",
+    },
+    {
+    name:"Farmer Export",
+    },
+    {
+    name:"Farmer Export",
+    },
+    {
+    name:"Farmer Export",
+    },
+    {
+    name:"Farmer Export",
+    },
+
+  ];
+
+  const tableData = useMemo(() => data || [], [data]);
 
   return (
     <React.Fragment>

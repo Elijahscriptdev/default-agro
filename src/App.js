@@ -26,6 +26,7 @@ import Dashboard from "./pages/Dashboard";
 import MiniDrawer from "./components/MiniDrawer";
 import Configuration from "./layouts/Settings/Configuration";
 import VegetationCheck from "./layouts/Vegetation/VegetationCheck";
+import VegetationCheckDetail from "./layouts/Vegetation/ViewMore";
 
 // Import Layout Components for Pages
 const DashboardIndexSection = React.lazy(() =>
@@ -323,6 +324,7 @@ function App() {
               {/* VEGETATION */}
               <Route path='/vegetation-check' element={<Dashboard />}>
                 <Route index element={<VegetationCheck />} />
+                <Route path="vegetation-check-detail" index element={<VegetationCheckDetail />} />
               </Route>
 
 
